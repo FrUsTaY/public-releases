@@ -1,2 +1,13 @@
-# public-releases
-Public cloud storage for heavy assets, compiled libraries (DLLs), and release files across my projects.
+# Public Releases & Assets Storage
+
+Репозиторий предназначен для хранения тяжелых ассетов, скомпилированных бинарных файлов, библиотек и внешних зависимостей для моих проектов. 
+
+## 📦 Доступные ресурсы (Releases)
+
+### 🧩 Lore Keeper Dependencies
+* **Тег релиза:** `cuBLAS.and.cuDNN_CUDA12_win_v1`
+* **Назначение:** Внешние библиотеки NVIDIA (`cuBLAS`, `cuDNN`) для работы локального распознавания речи через Faster-Whisper на CUDA 12.
+* **Формат:** Сжатие `.zip` (без фильтра BCJ2) для совместимости со встроенными распаковщиками на Python.
+
+---
+*Служебный репозиторий. Все файлы доступны для автоматического скачивания внутри приложений.*
