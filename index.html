@@ -1611,10 +1611,15 @@
         });
 
         // MODAL FUNCTIONS
+        let lastFocusedElement = null;
+
         function openModal(title, description, tech) {
             const modal = document.getElementById('projectModal');
             const modalContent = modal.querySelector('.modal-content');
             const closeModalBtn = modal.querySelector('.modal-close-btn');
+
+            // Store reference to currently focused element
+            lastFocusedElement = document.activeElement;
 
             document.getElementById('modalTitle').textContent = title;
             document.getElementById('modalDescription').textContent = description;
@@ -1623,20 +1628,16 @@
 
             // Set focus to close button for accessibility
             if (closeModalBtn) closeModalBtn.focus();
-
-            // Store last focused element for focus restoration
-            modal.dataset.lastFocused = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
         }
 
         function closeModal() {
             const modal = document.getElementById('projectModal');
             modal.classList.remove('active');
 
-            // Restore focus to last focused element
-            const lastFocused = modal.dataset.lastFocused;
-            if (lastFocused) {
-                const elem = document.querySelector(lastFocused);
-                if (elem) elem.focus();
+            // Restore focus to previously focused element
+            if (lastFocusedElement && document.body.contains(lastFocusedElement)) {
+                lastFocusedElement.focus();
+                lastFocusedElement = null;
             }
         }
 
@@ -1983,10 +1984,11 @@
                 mobileMenuBtn.setAttribute('aria-expanded', isActive);
             });
 
-            // Close menu when clicking a link
+            // Close menu when clicking a link and update aria-expanded
             navLinks.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', function() {
                     navLinks.classList.remove('active');
+                    mobileMenuBtn.setAttribute('aria-expanded', 'false');
                 });
             });
         }
