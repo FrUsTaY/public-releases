@@ -5,7 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="NEXUS CODE - Разработчик нового поколения. Создание программного обеспечения на любом языке. Качество кода 100%, быстрые сроки, поддержка 24/7.">
     <title>NEXUS CODE - Software Master | Matrix Style</title>
+    <!-- FIX audit #12: preconnect к Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Roboto+Mono:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- FIX audit #17: SVG favicon (data-URI, без запроса /favicon.ico) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23000'/%3E%3Ctext x='50' y='68' font-size='60' text-anchor='middle' fill='%2300FF41' font-family='monospace'%3E%26gt;%3C/text%3E%3C/svg%3E">
+    <!-- FIX audit #11: theme-color и Open Graph / Twitter Card -->
+    <meta name="theme-color" content="#000000">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="NEXUS CODE">
+    <meta property="og:title" content="NEXUS CODE — Software Master">
+    <meta property="og:description" content="Разработчик нового поколения. Создание программного обеспечения на любом языке. Качество кода 100%, быстрые сроки, поддержка 24/7.">
+    <meta property="og:locale" content="ru_RU">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="NEXUS CODE — Software Master">
+    <meta name="twitter:description" content="Разработчик нового поколения: ПО на любом языке, качество кода 100%, поддержка 24/7.">
 
     <style>
         :root {
@@ -197,6 +212,12 @@
             letter-spacing: 3px;
             animation: glow-pulse 3s ease-in-out infinite;
             cursor: pointer;
+        }
+
+        /* FIX audit #7: логотип-пасхалка доступен с клавиатуры */
+        .logo:focus-visible {
+            outline: 2px solid var(--bright-green);
+            outline-offset: 4px;
         }
 
         .nav-links {
@@ -562,7 +583,7 @@
             padding: 2rem;
             border-radius: 2px;
             transition: all 0.3s ease;
-            cursor: pointer;
+            /* FIX audit #7: cursor:pointer только у реально кликабельных элементов */
             animation: bounce-in 0.8s ease-out;
             position: relative;
             overflow: hidden;
@@ -840,7 +861,14 @@
             border-radius: 4px;
             box-shadow: 0 0 10px var(--primary-green);
             animation: shimmer 2s ease-in-out infinite;
-            transition: width 1.5s ease-out;
+            transform-origin: left center;
+            transform: scaleX(0);
+            transition: transform 1.5s ease-out;
+        }
+
+        /* FIX audit #3: IntersectionObserver добавляет .visible — полосы анимируются при появлении */
+        .skill-item.visible .skill-fill {
+            transform: scaleX(1);
         }
 
         .tech-stack {
@@ -848,6 +876,7 @@
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 1.5rem;
             margin-top: 2rem;
+            list-style: none; /* FIX audit #16: ul-список без маркеров */
         }
 
         .tech-item {
@@ -924,9 +953,30 @@
 
         .form-group input:focus,
         .form-group textarea:focus {
-            outline: none;
+            outline: 2px solid var(--bright-green);
+            outline-offset: 1px;
             box-shadow: var(--shadow-green);
             background: rgba(0, 255, 65, 0.1);
+        }
+
+        /* FIX audit #10: явный индикатор ошибки поля */
+        .form-group input.invalid,
+        .form-group textarea.invalid {
+            border-color: #ff4141;
+            box-shadow: 0 0 10px rgba(255, 65, 65, 0.5);
+        }
+
+        .field-error {
+            color: #ff6b6b;
+            font-size: 0.8rem;
+            margin-top: 0.35rem;
+            min-height: 1em;
+        }
+
+        .form-status {
+            font-size: 0.85rem;
+            color: var(--light-green);
+            letter-spacing: 1px;
         }
 
         .form-group textarea {
@@ -967,6 +1017,34 @@
             align-items: center;
             justify-content: center;
             padding: 2rem;
+        }
+
+        /* FIX audit #15: классы вместо повторяющихся инлайн-стилей */
+        .demo-warning {
+            text-align: center;
+            margin-bottom: 1rem;
+            font-size: 0.8rem;
+            color: var(--light-green);
+            opacity: 0.7;
+        }
+
+        .price-note {
+            font-size: 0.9rem;
+            color: var(--light-green);
+        }
+
+        .price-note-highlight {
+            font-size: 0.9rem;
+            color: var(--bright-green);
+        }
+
+        .modal-title {
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .modal-description {
+            margin-bottom: 1rem;
         }
 
         .modal.active {
@@ -1032,6 +1110,23 @@
             text-shadow: 0 0 10px var(--bright-green);
         }
 
+        /* REDUCED MOTION (a11y) */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            html {
+                scroll-behavior: auto;
+            }
+
+            #matrixCanvas {
+                display: none;
+            }
+        }
+
         /* RESPONSIVE */
         @media (max-width: 768px) {
             .hero h1 {
@@ -1042,9 +1137,27 @@
                 font-size: 1rem;
             }
 
+            /* Мобильное меню доступно уже с планшета (FIX audit #2) */
             .nav-links {
+                display: none;
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: rgba(0, 0, 0, 0.98);
+                border-bottom: 2px solid var(--primary-green);
+                padding: 1rem;
                 gap: 1rem;
-                font-size: 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
             }
 
             .contact-content {
@@ -1083,34 +1196,9 @@
                 font-size: 1.8rem;
             }
 
-            .nav-links {
-                display: none;
-            }
-
             .cta-btn {
                 padding: 0.5rem 1rem;
                 font-size: 0.8rem;
-            }
-
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            .nav-links {
-                display: none;
-                position: fixed;
-                top: 70px;
-                left: 0;
-                right: 0;
-                flex-direction: column;
-                background: rgba(0, 0, 0, 0.98);
-                border-bottom: 2px solid var(--primary-green);
-                padding: 1rem;
-                gap: 1rem;
-            }
-
-            .nav-links.active {
-                display: flex;
             }
 
             section {
@@ -1130,7 +1218,7 @@
     <!-- HEADER -->
     <header>
         <nav>
-            <div class="logo">&gt; NEXUS_CODE</div>
+            <div class="logo" tabindex="0" role="button" aria-label="NEXUS CODE — на тройной клик есть пасхалка">&gt; NEXUS_CODE</div>
             <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Меню навигации" aria-expanded="false" aria-controls="navLinks">
     <span class="sr-only">Меню</span>
 </button>
@@ -1141,7 +1229,7 @@
                 <li><a href="#skills">НАВЫКИ</a></li>
                 <li><a href="#contact">КОНТАКТЫ</a></li>
             </ul>
-            <button class="cta-btn">КОНСУЛЬТАЦИЯ</button>
+            <button class="cta-btn" id="headerCtaBtn" aria-label="Записаться на консультацию — перейти к форме контактов">КОНСУЛЬТАЦИЯ</button>
         </nav>
     </header>
 
@@ -1170,7 +1258,7 @@
 
         <!-- STATS SECTION -->
         <section id="stats" class="stats-section">
-            <div class="demo-warning" style="text-align: center; margin-bottom: 1rem; font-size: 0.8rem; color: var(--light-green); opacity: 0.7;">// Демонстрационные данные для примера</div>
+            <div class="demo-warning">// Демонстрационные данные для примера</div>
             <h2>&lt;&lt; СТАТИСТИКА &gt;&gt;</h2>
             <div class="stats-grid">
                 <div class="stat-item">
@@ -1243,7 +1331,7 @@
 
         <!-- PORTFOLIO SECTION -->
         <section id="portfolio">
-            <div class="demo-warning" style="text-align: center; margin-bottom: 1rem; font-size: 0.8rem; color: var(--light-green); opacity: 0.7;">// Демонстрационные проекты для примера</div>
+            <div class="demo-warning">// Демонстрационные проекты для примера</div>
             <h2>&lt;&lt; ПОРТФОЛИО &gt;&gt;</h2>
             <div class="portfolio-grid">
                 <div class="project-card" tabindex="0" role="button" aria-label="E-Commerce Platform: React, Node.js, MongoDB">
@@ -1323,13 +1411,13 @@
 
         <!-- PRICING SECTION -->
         <section id="pricing">
-            <div class="demo-warning" style="text-align: center; margin-bottom: 1rem; font-size: 0.8rem; color: var(--light-green); opacity: 0.7;">// Демонстрационные тарифы для примера</div>
+            <div class="demo-warning">// Демонстрационные тарифы для примера</div>
             <h2>&lt;&lt; ТАРИФЫ &gt;&gt;</h2>
             <div class="pricing-grid">
                 <div class="pricing-card">
                     <h3>СТАРТЕР</h3>
                     <div class="price"><span class="price-currency">₽</span>50,000</div>
-                    <p style="font-size: 0.9rem; color: var(--light-green);">за проект</p>
+                    <p class="price-note">за проект</p>
                     <ul class="features-list">
                         <li>Простые проекты до 10k строк кода</li>
                         <li>Базовая поддержка (7 дней)</li>
@@ -1342,7 +1430,7 @@
                 <div class="pricing-card featured">
                     <h3>ПРОФЕССИОНАЛ</h3>
                     <div class="price"><span class="price-currency">₽</span>150,000</div>
-                    <p style="font-size: 0.9rem; color: var(--bright-green);">за проект</p>
+                    <p class="price-note-highlight">за проект</p>
                     <ul class="features-list">
                         <li>Средние проекты до 50k строк кода</li>
                         <li>Расширенная поддержка (30 дней)</li>
@@ -1356,7 +1444,7 @@
                 <div class="pricing-card">
                     <h3>ПРЕМИУМ</h3>
                     <div class="price"><span class="price-currency">₽</span>300,000+</div>
-                    <p style="font-size: 0.9rem; color: var(--light-green);">по договору</p>
+                    <p class="price-note">по договору</p>
                     <ul class="features-list">
                         <li>Большие проекты 100k+ строк кода</li>
                         <li>VIP поддержка (неограниченная)</li>
@@ -1423,29 +1511,29 @@
             </div>
 
             <h3 id="tech-stack-title" style="text-align: center; margin-top: 3rem; letter-spacing: 2px; font-size: 1.3rem;">// Технологический стек</h3>
-            <div class="tech-stack" role="list" aria-labelledby="tech-stack-title">
-                <div class="tech-item" role="listitem" aria-label="Технология: Python">Python</div>
-                <div class="tech-item" role="listitem" aria-label="Технология: JavaScript">JavaScript</div>
-                <div class="tech-item" role="listitem" aria-label="Технология: TypeScript">TypeScript</div>
-                <div class="tech-item" role="listitem" aria-label="Технология: Java">Java</div>
-                <div class="tech-item" role="listitem" aria-label="Технология: C++">C++</div>
-                <div class="tech-item" role="listitem" aria-label="Технология: Go">Go</div>
-                <div class="tech-item" role="listitem" aria-label="Технология: React">React</div>
-                <div class="tech-item" role="listitem" aria-label="Технология: Vue.js">Vue.js</div>
-                <div class="tech-item" role="listitem" aria-label="Технология: Node.js">Node.js</div>
-                <div class="tech-item" role="listitem" aria-label="Технология: PostgreSQL">PostgreSQL</div>
-                <div class="tech-item" role="listitem" aria-label="Технология: MongoDB">MongoDB</div>
-                <div class="tech-item" role="listitem" aria-label="Технология: Docker">Docker</div>
-                <div class="tech-item" role="listitem" aria-label="Технология: Kubernetes">Kubernetes</div>
-                <div class="tech-item" role="listitem" aria-label="Технология: AWS">AWS</div>
-                <div class="tech-item" role="listitem" aria-label="Технология: Git">Git</div>
-                <div class="tech-item" role="listitem" aria-label="Технология: CI/CD">CI/CD</div>
-            </div>
+            <ul class="tech-stack" aria-labelledby="tech-stack-title">
+                <li class="tech-item">Python</li>
+                <li class="tech-item">JavaScript</li>
+                <li class="tech-item">TypeScript</li>
+                <li class="tech-item">Java</li>
+                <li class="tech-item">C++</li>
+                <li class="tech-item">Go</li>
+                <li class="tech-item">React</li>
+                <li class="tech-item">Vue.js</li>
+                <li class="tech-item">Node.js</li>
+                <li class="tech-item">PostgreSQL</li>
+                <li class="tech-item">MongoDB</li>
+                <li class="tech-item">Docker</li>
+                <li class="tech-item">Kubernetes</li>
+                <li class="tech-item">AWS</li>
+                <li class="tech-item">Git</li>
+                <li class="tech-item">CI/CD</li>
+            </ul>
         </section>
 
         <!-- CONTACT SECTION -->
         <section id="contact">
-            <div class="demo-warning" style="text-align: center; margin-bottom: 1rem; font-size: 0.8rem; color: var(--light-green); opacity: 0.7;">// Демонстрационные контакты для примера</div>
+            <div class="demo-warning">// Демонстрационные контакты для примера</div>
             <h2>&lt;&lt; КОНТАКТЫ &gt;&gt;</h2>
             <div class="contact-content">
                 <div class="contact-info">
@@ -1466,24 +1554,29 @@
                         <p>Пн-Пт: 09:00 - 18:00 (MSK)<br>Сб-Вс: По договору</p>
                     </div>
                 </div>
-                <form class="contact-form" id="contactForm" action="mailto:hello@nexuscode.dev" method="post" enctype="text/plain">
+                <form class="contact-form" id="contactForm" novalidate>
                     <div class="form-group">
                         <label for="name">Имя *</label>
-                        <input type="text" id="name" name="name" required aria-required="true">
+                        <input type="text" id="name" name="name" required aria-required="true" autocomplete="name">
+                        <span class="field-error" id="nameError" role="alert"></span>
                     </div>
                     <div class="form-group">
                         <label for="email">Email *</label>
-                        <input type="email" id="email" name="email" required aria-required="true">
+                        <input type="email" id="email" name="email" required aria-required="true" autocomplete="email">
+                        <span class="field-error" id="emailError" role="alert"></span>
                     </div>
                     <div class="form-group">
                         <label for="subject">Тема проекта *</label>
                         <input type="text" id="subject" name="subject" required aria-required="true">
+                        <span class="field-error" id="subjectError" role="alert"></span>
                     </div>
                     <div class="form-group">
                         <label for="message">Ваше сообщение *</label>
                         <textarea id="message" name="message" required aria-required="true"></textarea>
+                        <span class="field-error" id="messageError" role="alert"></span>
                     </div>
                     <button type="submit" class="form-submit" aria-label="Отправить сообщение">ОТПРАВИТЬ ЗАПРОС</button>
+                    <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
                 </form>
             </div>
         </section>
@@ -1496,17 +1589,17 @@
     </footer>
 
     <!-- MODAL FOR PROJECT DETAILS -->
-    <div class="modal" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-content">
             <button type="button" class="modal-close modal-close-btn" aria-label="Закрыть модальное окно">&times;</button>
-            <h2 id="modalTitle" style="margin-bottom: 1rem; letter-spacing: 2px;"></h2>
-            <p id="modalDescription" style="margin-bottom: 1rem;"></p>
+            <h2 id="modalTitle" class="modal-title"></h2>
+            <p id="modalDescription" class="modal-description"></p>
             <div id="modalTechStack"></div>
         </div>
     </div>
 
     <script>
-        // MATRIX RAIN EFFECT
+        // MATRIX RAIN EFFECT (FIX audit #13: requestAnimationFrame вместо setInterval, пауза в фоновой вкладке)
         const canvas = document.getElementById('matrixCanvas');
         const ctx = canvas.getContext('2d');
 
@@ -1544,9 +1637,29 @@
             }
         }
 
-        setInterval(drawMatrixRain, 33);
+        // ~30 fps через rAF; полный стоп при document.hidden или prefers-reduced-motion
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        let lastFrameTime = 0;
+        const frameInterval = 1000 / 30;
 
-        // WINDOW RESIZE - recalculate columns and drops
+        function matrixLoop(timestamp) {
+            if (!reducedMotion && !document.hidden && timestamp - lastFrameTime >= frameInterval) {
+                lastFrameTime = timestamp;
+                drawMatrixRain();
+            }
+            requestAnimationFrame(matrixLoop);
+        }
+
+        if (!reducedMotion) {
+            requestAnimationFrame(matrixLoop);
+        }
+
+        document.addEventListener('visibilitychange', () => {
+            // при возврате на вкладку цикл rAF уже сам возобновляет отрисовку
+            if (!document.hidden && !reducedMotion) lastFrameTime = 0;
+        });
+
+        // WINDOW RESIZE - recalculate columns and drops (FIX audit #14: debounce)
         function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
@@ -1563,41 +1676,74 @@
             }
         }
 
-        window.addEventListener('resize', resizeCanvas);
-
-        // FORM HANDLING - sends via mailto
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const formData = new FormData(this);
-            const name = formData.get('name');
-            const email = formData.get('email');
-            const subject = formData.get('subject');
-            const message = formData.get('message');
-
-            // Basic validation
-            if (!name.trim() || !email.trim() || !subject.trim() || !message.trim()) {
-                alert('⚠️ Пожалуйста, заполните все обязательные поля.');
-                return;
-            }
-
-            // Email validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                alert('⚠️ Пожалуйста, введите корректный email адрес.');
-                return;
-            }
-
-            // Prepare email content
-            const emailBody = `Имя: ${encodeURIComponent(name)}%0AEmail: ${encodeURIComponent(email)}%0AТема: ${encodeURIComponent(subject)}%0A%0AСообщение:%0A${encodeURIComponent(message)}`;
-            const mailtoLink = `mailto:hello@nexuscode.dev?subject=${encodeURIComponent(subject)}&body=${emailBody}`;
-
-            // Confirm before opening email client
-            if (confirm(`Открыть почтовый клиент для отправки?\n\nТема: ${subject}\nИмя: ${name}`)) {
-                alert('📧 ПОДГОТОВКА ПИСЬМА\n\nВаш почтовый клиент должен открыться с подготовленным письмом.');
-                window.location.href = mailtoLink;
-            }
+        let resizeTimer = null;
+        window.addEventListener('resize', function() {
+            if (resizeTimer) clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(resizeCanvas, 150);
         });
+
+        // FORM HANDLING (FIX audit #4): инлайн-валидация полей + mailto без двойных alert/confirm
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            const fields = [
+                { id: 'name', errorId: 'nameError', validate: v => v.trim() ? '' : 'Укажите имя.' },
+                { id: 'email', errorId: 'emailError', validate: v => {
+                    if (!v.trim()) return 'Укажите email.';
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    return emailRegex.test(v.trim()) ? '' : 'Введите корректный email адрес.';
+                }},
+                { id: 'subject', errorId: 'subjectError', validate: v => v.trim() ? '' : 'Укажите тему проекта.' },
+                { id: 'message', errorId: 'messageError', validate: v => v.trim() ? '' : 'Напишите сообщение.' }
+            ];
+
+            const setFieldError = (field, msg) => {
+                const input = document.getElementById(field.id);
+                const errorEl = document.getElementById(field.errorId);
+                if (errorEl) errorEl.textContent = msg;
+                if (input) {
+                    input.classList.toggle('invalid', !!msg);
+                    input.setAttribute('aria-invalid', msg ? 'true' : 'false');
+                }
+            };
+
+            // Валидация при уходе из поля
+            fields.forEach(field => {
+                const input = document.getElementById(field.id);
+                if (input) {
+                    input.addEventListener('blur', () => setFieldError(field, field.validate(input.value)));
+                    input.addEventListener('input', () => {
+                        if (input.classList.contains('invalid')) setFieldError(field, field.validate(input.value));
+                    });
+                }
+            });
+
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                let firstInvalid = null;
+                fields.forEach(field => {
+                    const input = document.getElementById(field.id);
+                    const msg = field.validate(input ? input.value : '');
+                    setFieldError(field, msg);
+                    if (msg && !firstInvalid && input) firstInvalid = input;
+                });
+
+                if (firstInvalid) {
+                    firstInvalid.focus();
+                    return;
+                }
+
+                const value = id => document.getElementById(id).value.trim();
+                const emailBody = `Имя: ${value('name')}\nEmail: ${value('email')}\n\nСообщение:\n${value('message')}`;
+                const mailtoLink = `mailto:hello@nexuscode.dev?subject=${encodeURIComponent(value('subject'))}&body=${encodeURIComponent(emailBody)}`;
+
+                const status = document.getElementById('formStatus');
+                if (status) {
+                    status.textContent = '> Открываю почтовый клиент... Если он не настроен, напишите напрямую: hello@nexuscode.dev';
+                }
+                window.location.href = mailtoLink;
+            });
+        }
 
         // SMOOTH SCROLL
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1625,6 +1771,8 @@
             document.getElementById('modalDescription').textContent = description;
             document.getElementById('modalTechStack').innerHTML = tech;
             modal.classList.add('active');
+            // FIX audit #9: закрытая модалка убирается из дерева доступности
+            modal.removeAttribute('aria-hidden');
 
             // Set focus to close button for accessibility
             if (closeModalBtn) closeModalBtn.focus();
@@ -1633,6 +1781,8 @@
         function closeModal() {
             const modal = document.getElementById('projectModal');
             modal.classList.remove('active');
+            // FIX audit #9: возвращаем aria-hidden, пока диалог скрыт
+            modal.setAttribute('aria-hidden', 'true');
 
             // Restore focus to previously focused element
             if (lastFocusedElement && document.body.contains(lastFocusedElement)) {
@@ -1670,10 +1820,32 @@
             }
         });
 
-        // CLOSE MODAL ON ESCAPE KEY
+        // CLOSE MODAL ON ESCAPE KEY + FOCUS TRAP (FIX audit #5, #9)
         document.addEventListener('keydown', function(e) {
+            const modal = document.getElementById('projectModal');
+            const isModalOpen = modal && modal.classList.contains('active');
+
+            if (!isModalOpen) return;
+
             if (e.key === 'Escape') {
                 closeModal();
+                return;
+            }
+
+            // Ловушка фокуса: Tab циклится внутри диалога
+            if (e.key === 'Tab') {
+                const focusables = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+                if (focusables.length === 0) return;
+                const first = focusables[0];
+                const last = focusables[focusables.length - 1];
+
+                if (e.shiftKey && document.activeElement === first) {
+                    e.preventDefault();
+                    last.focus();
+                } else if (!e.shiftKey && document.activeElement === last) {
+                    e.preventDefault();
+                    first.focus();
+                }
             }
         });
 
@@ -1694,15 +1866,22 @@
             observer.observe(skill);
         });
 
-        // CTA BUTTONS
+        // CTA BUTTONS (включая кнопку КОНСУЛЬТАЦИЯ в шапке — FIX audit #6)
+        function scrollToContact() {
+            const contactSection = document.getElementById('contact');
+            if (contactSection) {
+                contactSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
         document.querySelectorAll('.btn-primary').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const contactSection = document.getElementById('contact');
-                if (contactSection) {
-                    contactSection.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
+            btn.addEventListener('click', scrollToContact);
         });
+
+        const headerCtaBtn = document.getElementById('headerCtaBtn');
+        if (headerCtaBtn) {
+            headerCtaBtn.addEventListener('click', scrollToContact);
+        }
 
         // SECONDARY BUTTON - scrolls to about section
         const secondaryBtn = document.querySelector('.btn-secondary');
@@ -1869,7 +2048,7 @@
         let logoClickCount = 0;
         let logoClickTimer = null;
 
-        document.querySelector('.logo').addEventListener('click', function() {
+        function registerLogoClick() {
             logoClickCount++;
 
             if (logoClickTimer) clearTimeout(logoClickTimer);
@@ -1882,7 +2061,19 @@
                 activateLogoEasterEgg();
                 logoClickCount = 0;
             }
-        });
+        }
+
+        const logoEl = document.querySelector('.logo');
+        if (logoEl) {
+            logoEl.addEventListener('click', registerLogoClick);
+            // FIX audit #7: пасхалка доступна и с клавиатуры (Enter/Пробел)
+            logoEl.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    registerLogoClick();
+                }
+            });
+        }
 
         function activateLogoEasterEgg() {
             const messages = [
@@ -1960,7 +2151,8 @@
                             }
                             if ((isDecimal && start >= target * 10) || (!isDecimal && start >= target)) {
                                 clearInterval(timer);
-                                stat.textContent = targetStr + (targetStr === '5.0' ? '' : '+');
+                                // FIX audit #1: дробные значения (рейтинг 5.0) не должны получать суффикс "+"
+                                stat.textContent = isDecimal ? targetStr : targetStr + '+';
                             }
                         }, stepTime);
                     });
