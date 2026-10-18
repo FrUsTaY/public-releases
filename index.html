@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="NEXUS CODE - Разработчик нового поколения. Создание программного обеспечения на любом языке. Качество кода 100%, быстрые сроки, поддержка 24/7.">
     <title>NEXUS CODE - Software Master | Matrix Style</title>
     <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Roboto+Mono:wght@300;400;700&display=swap" rel="stylesheet">
 
@@ -63,6 +64,19 @@
             );
             pointer-events: none;
             z-index: 9999;
+        }
+
+        /* SCREEN READER ONLY CLASS */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
         }
 
         /* ANIMATIONS */
@@ -405,6 +419,34 @@
             text-align: center;
             animation: glow-pulse 3s ease-in-out infinite;
             text-shadow: 0 0 15px var(--primary-green);
+        }
+
+        /* Shared styles to reduce duplication */
+        .neon-text {
+            letter-spacing: 3px;
+            animation: glow-pulse 3s ease-in-out infinite;
+            text-shadow: 0 0 15px var(--primary-green);
+        }
+
+        .neon-text-small {
+            letter-spacing: 2px;
+            animation: glow-pulse 2.5s ease-in-out infinite;
+            text-shadow: 0 0 10px var(--primary-green);
+        }
+
+        .neon-text-tight {
+            letter-spacing: 1px;
+            animation: glow-pulse 2s ease-in-out infinite;
+            text-shadow: 0 0 5px var(--primary-green);
+        }
+
+        .neon-border {
+            border: 2px solid var(--primary-green);
+            border-radius: 2px;
+        }
+
+        .neon-gradient {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--bright-green) 100%);
         }
 
         /* STATS SECTION */
@@ -774,20 +816,27 @@
 
         .skill-bar {
             width: 100%;
-            height: 8px;
+            height: 12px;
             background: rgba(0, 255, 65, 0.1);
             border: 1px solid var(--primary-green);
-            border-radius: 2px;
+            border-radius: 4px;
             overflow: hidden;
             position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .skill-bar:hover {
+            transform: scale(1.02);
+            box-shadow: var(--shadow-green);
         }
 
         .skill-fill {
             height: 100%;
             background: linear-gradient(90deg, var(--primary-green) 0%, var(--bright-green) 100%);
-            border-radius: 2px;
+            border-radius: 4px;
             box-shadow: 0 0 10px var(--primary-green);
             animation: shimmer 2s ease-in-out infinite;
+            transition: width 1.5s ease-out;
         }
 
         .tech-stack {
@@ -801,7 +850,7 @@
             background: rgba(0, 255, 65, 0.08);
             border: 1px solid var(--primary-green);
             padding: 1rem;
-            border-radius: 2px;
+            border-radius: 4px;
             text-align: center;
             transition: all 0.3s ease;
             cursor: pointer;
@@ -810,7 +859,14 @@
         .tech-item:hover {
             background: rgba(0, 255, 65, 0.15);
             box-shadow: var(--shadow-green);
-            transform: translateY(-5px);
+            transform: translateY(-5px) rotate(1deg);
+        }
+
+        .tech-item:focus {
+            outline: 2px solid var(--bright-green);
+            outline-offset: 2px;
+            background: rgba(0, 255, 65, 0.2);
+            transform: translateY(-3px);
         }
 
         /* CONTACT SECTION */
@@ -1066,7 +1122,9 @@
     <header>
         <nav>
             <div class="logo">&gt; NEXUS_CODE</div>
-            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Меню"></button>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Меню навигации" aria-expanded="false" aria-controls="navLinks">
+    <span class="sr-only">Меню</span>
+</button>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#services">УСЛУГИ</a></li>
                 <li><a href="#portfolio">ПОРТФОЛИО</a></li>
@@ -1179,8 +1237,8 @@
             <div class="demo-warning" style="text-align: center; margin-bottom: 1rem; font-size: 0.8rem; color: var(--light-green); opacity: 0.7;">// Демонстрационные проекты для примера</div>
             <h2>&lt;&lt; ПОРТФОЛИО &gt;&gt;</h2>
             <div class="portfolio-grid">
-                <div class="project-card">
-                    <div class="project-image">🛒</div>
+                <div class="project-card" tabindex="0" role="button" aria-label="E-Commerce Platform: React, Node.js, MongoDB">
+                    <div class="project-image" role="img" aria-label="Иконка корзины для e-commerce проекта">🛒</div>
                     <div class="project-info">
                         <h3>E-Commerce Platform</h3>
                         <p>Полнофункциональная платформа для онлайн-магазина с интегрированной системой платежей.</p>
@@ -1191,8 +1249,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="project-card">
-                    <div class="project-image">☁️</div>
+                <div class="project-card" tabindex="0" role="button" aria-label="SaaS Application: Vue.js, Firebase, WebSockets">
+                    <div class="project-image" role="img" aria-label="Иконка облака для SaaS проекта">☁️</div>
                     <div class="project-info">
                         <h3>SaaS Application</h3>
                         <p>Облачное приложение для управления проектами с удалённым доступом и real-time синхронизацией.</p>
@@ -1203,8 +1261,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="project-card">
-                    <div class="project-image">📱</div>
+                <div class="project-card" tabindex="0" role="button" aria-label="Mobile App: React Native, Swift, Kotlin">
+                    <div class="project-image" role="img" aria-label="Иконка смартфона для мобильного приложения">📱</div>
                     <div class="project-info">
                         <h3>Mobile App</h3>
                         <p>Нативное мобильное приложение с поддержкой iOS и Android, интегрированная с облачными сервисами.</p>
@@ -1215,8 +1273,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="project-card">
-                    <div class="project-image">🔌</div>
+                <div class="project-card" tabindex="0" role="button" aria-label="REST API Service: Python, FastAPI, PostgreSQL">
+                    <div class="project-image" role="img" aria-label="Иконка plug для API сервиса">🔌</div>
                     <div class="project-info">
                         <h3>REST API Service</h3>
                         <p>Высоконагруженный микросервис с документацией, авторизацией и оптимизированными запросами к БД.</p>
@@ -1227,8 +1285,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="project-card">
-                    <div class="project-image">📊</div>
+                <div class="project-card" tabindex="0" role="button" aria-label="CMS System: Django, React, PostgreSQL">
+                    <div class="project-image" role="img" aria-label="Иконка документа для CMS системы">📊</div>
                     <div class="project-info">
                         <h3>CMS System</h3>
                         <p>Собственная система управления контентом с графическим редактором и компонентным подходом.</p>
@@ -1239,8 +1297,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="project-card">
-                    <div class="project-image">📈</div>
+                <div class="project-card" tabindex="0" role="button" aria-label="Data Analytics Tool: Python, D3.js, BigQuery">
+                    <div class="project-image" role="img" aria-label="Иконка графика для инструмента аналитики">📈</div>
                     <div class="project-info">
                         <h3>Data Analytics Tool</h3>
                         <p>Инструмент для анализа больших объёмов данных с интерактивной визуализацией и отчётами.</p>
@@ -1311,68 +1369,68 @@
                 <div class="skill-item">
                     <div class="skill-label">
                         <span>Backend Development</span>
-                        <span>95%</span>
+                        <span aria-label="Уровень: 95 процентов">95%</span>
                     </div>
-                    <div class="skill-bar">
-                        <div class="skill-fill" style="width: 95%; animation-delay: 0s;"></div>
+                    <div class="skill-bar" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100" aria-label="Навык Backend Development: 95%">
+                        <div class="skill-fill" style="width: 95%;"></div>
                     </div>
                 </div>
                 <div class="skill-item">
                     <div class="skill-label">
                         <span>Frontend Development</span>
-                        <span>90%</span>
+                        <span aria-label="Уровень: 90 процентов">90%</span>
                     </div>
-                    <div class="skill-bar">
-                        <div class="skill-fill" style="width: 90%; animation-delay: 0.2s;"></div>
+                    <div class="skill-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" aria-label="Навык Frontend Development: 90%">
+                        <div class="skill-fill" style="width: 90%;"></div>
                     </div>
                 </div>
                 <div class="skill-item">
                     <div class="skill-label">
                         <span>DevOps & Infrastructure</span>
-                        <span>85%</span>
+                        <span aria-label="Уровень: 85 процентов">85%</span>
                     </div>
-                    <div class="skill-bar">
-                        <div class="skill-fill" style="width: 85%; animation-delay: 0.4s;"></div>
+                    <div class="skill-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" aria-label="Навык DevOps & Infrastructure: 85%">
+                        <div class="skill-fill" style="width: 85%;"></div>
                     </div>
                 </div>
                 <div class="skill-item">
                     <div class="skill-label">
                         <span>Database Design</span>
-                        <span>92%</span>
+                        <span aria-label="Уровень: 92 процента">92%</span>
                     </div>
-                    <div class="skill-bar">
-                        <div class="skill-fill" style="width: 92%; animation-delay: 0.6s;"></div>
+                    <div class="skill-bar" role="progressbar" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100" aria-label="Навык Database Design: 92%">
+                        <div class="skill-fill" style="width: 92%;"></div>
                     </div>
                 </div>
                 <div class="skill-item">
                     <div class="skill-label">
                         <span>Mobile Development</span>
-                        <span>88%</span>
+                        <span aria-label="Уровень: 88 процентов">88%</span>
                     </div>
-                    <div class="skill-bar">
-                        <div class="skill-fill" style="width: 88%; animation-delay: 0.8s;"></div>
+                    <div class="skill-bar" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100" aria-label="Навык Mobile Development: 88%">
+                        <div class="skill-fill" style="width: 88%;"></div>
                     </div>
                 </div>
             </div>
 
-            <h3 style="text-align: center; margin-top: 3rem; letter-spacing: 2px; font-size: 1.3rem;">// Технологический стек</h3>
-            <div class="tech-stack">
-                <div class="tech-item">Python</div>
-                <div class="tech-item">JavaScript</div>
-                <div class="tech-item">TypeScript</div>
-                <div class="tech-item">Java</div>
-                <div class="tech-item">C++</div>
-                <div class="tech-item">Go</div>
-                <div class="tech-item">React</div>
-                <div class="tech-item">Vue.js</div>
-                <div class="tech-item">Node.js</div>
-                <div class="tech-item">PostgreSQL</div>
-                <div class="tech-item">MongoDB</div>
-                <div class="tech-item">Docker</div>
-                <div class="tech-item">Kubernetes</div>
-                <div class="tech-item">AWS</div>
-                <div class="tech-item">Git</div>
-                <div class="tech-item">CI/CD</div>
+            <h3 id="tech-stack-title" style="text-align: center; margin-top: 3rem; letter-spacing: 2px; font-size: 1.3rem;">// Технологический стек</h3>
+            <div class="tech-stack" role="list" aria-labelledby="tech-stack-title">
+                <div class="tech-item" role="listitem" tabindex="0" aria-label="Технология: Python">Python</div>
+                <div class="tech-item" role="listitem" tabindex="0" aria-label="Технология: JavaScript">JavaScript</div>
+                <div class="tech-item" role="listitem" tabindex="0" aria-label="Технология: TypeScript">TypeScript</div>
+                <div class="tech-item" role="listitem" tabindex="0" aria-label="Технология: Java">Java</div>
+                <div class="tech-item" role="listitem" tabindex="0" aria-label="Технология: C++">C++</div>
+                <div class="tech-item" role="listitem" tabindex="0" aria-label="Технология: Go">Go</div>
+                <div class="tech-item" role="listitem" tabindex="0" aria-label="Технология: React">React</div>
+                <div class="tech-item" role="listitem" tabindex="0" aria-label="Технология: Vue.js">Vue.js</div>
+                <div class="tech-item" role="listitem" tabindex="0" aria-label="Технология: Node.js">Node.js</div>
+                <div class="tech-item" role="listitem" tabindex="0" aria-label="Технология: PostgreSQL">PostgreSQL</div>
+                <div class="tech-item" role="listitem" tabindex="0" aria-label="Технология: MongoDB">MongoDB</div>
+                <div class="tech-item" role="listitem" tabindex="0" aria-label="Технология: Docker">Docker</div>
+                <div class="tech-item" role="listitem" tabindex="0" aria-label="Технология: Kubernetes">Kubernetes</div>
+                <div class="tech-item" role="listitem" tabindex="0" aria-label="Технология: AWS">AWS</div>
+                <div class="tech-item" role="listitem" tabindex="0" aria-label="Технология: Git">Git</div>
+                <div class="tech-item" role="listitem" tabindex="0" aria-label="Технология: CI/CD">CI/CD</div>
             </div>
         </section>
 
@@ -1399,24 +1457,24 @@
                         <p>Пн-Пт: 09:00 - 18:00 (MSK)<br>Сб-Вс: По договору</p>
                     </div>
                 </div>
-                <form class="contact-form" id="contactForm">
+                <form class="contact-form" id="contactForm" action="mailto:hello@nexuscode.dev" method="post" enctype="text/plain">
                     <div class="form-group">
                         <label for="name">Имя *</label>
-                        <input type="text" id="name" name="name" required>
+                        <input type="text" id="name" name="name" required aria-required="true">
                     </div>
                     <div class="form-group">
                         <label for="email">Email *</label>
-                        <input type="email" id="email" name="email" required>
+                        <input type="email" id="email" name="email" required aria-required="true">
                     </div>
                     <div class="form-group">
                         <label for="subject">Тема проекта *</label>
-                        <input type="text" id="subject" name="subject" required>
+                        <input type="text" id="subject" name="subject" required aria-required="true">
                     </div>
                     <div class="form-group">
                         <label for="message">Ваше сообщение *</label>
-                        <textarea id="message" name="message" required></textarea>
+                        <textarea id="message" name="message" required aria-required="true"></textarea>
                     </div>
-                    <button type="submit" class="form-submit">ОТПРАВИТЬ ЗАПРОС</button>
+                    <button type="submit" class="form-submit" aria-label="Отправить сообщение">ОТПРАВИТЬ ЗАПРОС</button>
                 </form>
             </div>
         </section>
@@ -1479,13 +1537,26 @@
 
         setInterval(drawMatrixRain, 33);
 
-        // WINDOW RESIZE
-        window.addEventListener('resize', () => {
+        // WINDOW RESIZE - recalculate columns and drops
+        function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-        });
 
-        // FORM HANDLING - sends via mailto
+            // Recalculate columns
+            const newColumns = Math.floor(canvas.width / fontSize);
+
+            // Preserve existing drops where possible, add new ones
+            const oldLength = drops.length;
+            drops.length = newColumns;
+
+            for (let i = oldLength; i < newColumns; i++) {
+                drops[i] = Math.random() * canvas.height;
+            }
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+
+        // FORM HANDLING - sends via mailto with improved UX
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
@@ -1495,21 +1566,29 @@
             const subject = formData.get('subject');
             const message = formData.get('message');
 
-            if (!name || !email || !subject || !message) {
+            // Basic validation
+            if (!name.trim() || !email.trim() || !subject.trim() || !message.trim()) {
                 alert('⚠️ Пожалуйста, заполните все обязательные поля.');
                 return;
             }
 
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('⚠️ Пожалуйста, введите корректный email адрес.');
+                return;
+            }
+
             // Prepare email content
-            const emailBody = `Имя: ${name}%0AEmail: ${email}%0AТема: ${subject}%0A%0AСообщение:%0A${message}`;
+            const emailBody = `Имя: ${encodeURIComponent(name)}%0AEmail: ${encodeURIComponent(email)}%0AТема: ${encodeURIComponent(subject)}%0A%0AСообщение:%0A${encodeURIComponent(message)}`;
             const mailtoLink = `mailto:hello@nexuscode.dev?subject=${encodeURIComponent(subject)}&body=${emailBody}`;
 
-            // Open email client
-            window.location.href = mailtoLink;
-
-            // Show success message (browser-based, not automatic send)
-            this.reset();
-            alert('📧 СПОЧАТКО!\n\nВаш почтовый клиент должен открыться с подготовленным письмом.\nЕсли окно не открылось, проверьте настройки почты или используйте другой email адрес.');
+            // Show confirmation before opening email client
+            if (confirm(`Отправить запрос на hello@nexuscode.dev?\n\nТема: ${subject}\nИмя: ${name}`)) {
+                window.location.href = mailtoLink;
+                this.reset();
+                alert('📧 ПИСЬМО ГОТОВО!\n\nВаш почтовый клиент должен открыться с подготовленным письмом.');
+            }
         });
 
         // SMOOTH SCROLL
@@ -1535,13 +1614,25 @@
             document.getElementById('projectModal').classList.remove('active');
         }
 
-        // PROJECT CARD CLICK HANDLERS
+        // PROJECT CARD HANDLERS (click and keyboard)
         document.querySelectorAll('.project-card').forEach(card => {
+            // Click handler
             card.addEventListener('click', function() {
                 const title = this.querySelector('.project-info h3').textContent;
                 const description = this.querySelector('.project-info p').textContent;
                 const tech = this.querySelector('.project-tech').innerHTML;
                 openModal(title, description, `<strong>Технологии:</strong><div class="project-tech" style="margin-top: 1rem;">${tech}</div>`);
+            });
+
+            // Keyboard handler for accessibility
+            card.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    const title = this.querySelector('.project-info h3').textContent;
+                    const description = this.querySelector('.project-info p').textContent;
+                    const tech = this.querySelector('.project-tech').innerHTML;
+                    openModal(title, description, `<strong>Технологии:</strong><div class="project-tech" style="margin-top: 1rem;">${tech}</div>`);
+                }
             });
         });
 
@@ -1652,13 +1743,20 @@
             });
         });
 
-        // TECH ITEMS HOVER EFFECT
+        // TECH ITEMS INTERACTION (hover and keyboard)
         document.querySelectorAll('.tech-item').forEach(item => {
             item.addEventListener('mouseenter', function() {
                 this.style.transform = 'translateY(-5px) rotate(1deg)';
             });
             item.addEventListener('mouseleave', function() {
                 this.style.transform = 'translateY(0) rotate(0deg)';
+            });
+            // Keyboard interaction for accessibility
+            item.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    console.log(`%cTechnology selected: ${this.textContent}`, 'color: #00FF41; font-size: 12px; font-family: monospace;');
+                }
             });
         });
 
@@ -1716,8 +1814,15 @@
         }
 
         // EASTER EGG: 1337 SPEAK (печатаем "1337" или "leet")
+        // Does NOT activate when typing in form fields
         let keyBuffer = [];
         document.addEventListener('keydown', function(e) {
+            // Ignore input if focused on form elements
+            const activeElement = document.activeElement;
+            if (activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'SELECT' || activeElement.classList.contains('form-group'))) {
+                return;
+            }
+
             keyBuffer.push(e.key);
             keyBuffer = keyBuffer.slice(-4);
             const typed = keyBuffer.join('').toLowerCase();
@@ -1773,8 +1878,19 @@
             }, 300);
         }
 
-        // EASTER EGG: Canvas Click (Red Pill / Blue Pill)
-        canvas.addEventListener('dblclick', function(e) {
+        // EASTER EGG: Double click (Red Pill / Blue Pill)
+        // Triggered by double-click on body but not on interactive elements
+        document.addEventListener('dblclick', function(e) {
+            // Get the closest interactive element
+            const target = e.target;
+            const interactiveTags = ['BUTTON', 'A', 'INPUT', 'SELECT', 'TEXTAREA', 'LABEL'];
+            const interactiveClass = ['service-card', 'project-card', 'pricing-card', 'tech-item', 'contact-item', 'stat-item', 'feature-item'];
+
+            // Check if clicked on interactive element or inside one
+            if (interactiveTags.includes(target.tagName) || interactiveClass.some(cls => target.closest('.' + cls))) {
+                return;
+            }
+
             const choice = confirm('💊 MATRIX CHOICE 💊\n\nRed Pill (OK) - See the truth\nBlue Pill (Cancel) - Stay in wonderland');
 
             if (choice) {
@@ -1838,14 +1954,12 @@
         if (mobileMenuBtn && navLinks) {
             mobileMenuBtn.addEventListener('click', function() {
                 navLinks.classList.toggle('active');
-                this.classList.toggle('active');
             });
 
             // Close menu when clicking a link
             navLinks.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', function() {
                     navLinks.classList.remove('active');
-                    mobileMenuBtn.classList.remove('active');
                 });
             });
         }
