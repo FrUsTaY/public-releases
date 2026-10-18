@@ -1,0 +1,1760 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS CODE - Software Master | Matrix Style</title>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Roboto+Mono:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-green: #00FF41;
+            --dark-green: #001A00;
+            --light-green: #00AA00;
+            --bright-green: #00FF00;
+            --neon-green: #39FF14;
+            --text-color: #00FF41;
+            --bg-color: #000000;
+            --border-color: #00AA00;
+            --shadow-green: 0 0 20px rgba(0, 255, 65, 0.5);
+            --shadow-green-bright: 0 0 40px rgba(0, 255, 65, 0.8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Roboto Mono', 'Courier New', monospace;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image:
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(0, 255, 65, 0.03) 0px,
+                    rgba(0, 255, 65, 0.03) 1px,
+                    transparent 1px,
+                    transparent 2px
+                );
+        }
+
+        /* SCANLINES EFFECT */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.15),
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* ANIMATIONS */
+        @keyframes typewriter {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
+
+        @keyframes glow-pulse {
+            0%, 100% {
+                text-shadow: 0 0 10px var(--primary-green), 0 0 20px var(--primary-green);
+            }
+            50% {
+                text-shadow: 0 0 20px var(--primary-green), 0 0 40px var(--bright-green), 0 0 60px var(--bright-green);
+            }
+        }
+
+        @keyframes flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                opacity: 1;
+                text-shadow: 0 0 10px var(--primary-green), 0 0 20px var(--primary-green);
+            }
+            20%, 24%, 55% {
+                opacity: 0.5;
+                text-shadow: none;
+            }
+        }
+
+        @keyframes matrix-rain {
+            0% {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        @keyframes slide-in-right {
+            from {
+                transform: translateX(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes bounce-in {
+            0% {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 10px var(--primary-green);
+            }
+            50% {
+                box-shadow: 0 0 30px var(--bright-green);
+            }
+        }
+
+        @keyframes shimmer {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        /* HEADER & NAVIGATION */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            border-bottom: 2px solid var(--primary-green);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            box-shadow: var(--shadow-green);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            letter-spacing: 3px;
+            animation: glow-pulse 3s ease-in-out infinite;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .nav-links a:hover {
+            color: var(--bright-green);
+            text-shadow: 0 0 10px var(--bright-green);
+        }
+
+        .cta-btn {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--light-green) 100%);
+            color: var(--bg-color);
+            padding: 0.7rem 1.5rem;
+            border: 2px solid var(--primary-green);
+            border-radius: 2px;
+            cursor: pointer;
+            font-family: 'Roboto Mono', monospace;
+            font-weight: bold;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-green);
+        }
+
+        .cta-btn:hover {
+            box-shadow: var(--shadow-green-bright);
+            transform: scale(1.05);
+        }
+
+        /* MATRIX RAIN CONTAINER */
+        #matrixCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            opacity: 0.3;
+        }
+
+        /* MAIN CONTENT */
+        main {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 5rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.5) 100%);
+            z-index: -1;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            animation: slide-in-right 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            letter-spacing: 4px;
+            animation: glow-pulse 2s ease-in-out infinite;
+            text-shadow: 0 0 20px var(--primary-green), 0 0 40px var(--bright-green);
+            font-weight: bold;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--light-green);
+            margin-bottom: 2rem;
+            letter-spacing: 2px;
+            animation: glow-pulse 2.5s ease-in-out infinite;
+            text-shadow: 0 0 10px var(--primary-green);
+        }
+
+        .hero-code {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            margin: 2rem 0;
+            background: rgba(0, 255, 65, 0.1);
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary-green);
+            text-align: left;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            font-family: 'Courier Prime', monospace;
+            overflow-x: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--bright-green) 100%);
+            color: var(--bg-color);
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 2px;
+            font-size: 1rem;
+            font-family: 'Roboto Mono', monospace;
+            font-weight: bold;
+            cursor: pointer;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-green);
+            animation: bounce-in 0.8s ease-out;
+        }
+
+        .btn-primary:hover {
+            box-shadow: var(--shadow-green-bright);
+            transform: translateY(-3px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-green);
+            padding: 1rem 2.5rem;
+            border: 2px solid var(--primary-green);
+            border-radius: 2px;
+            font-size: 1rem;
+            font-family: 'Roboto Mono', monospace;
+            font-weight: bold;
+            cursor: pointer;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-green);
+            animation: bounce-in 0.8s ease-out 0.1s both;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 255, 65, 0.1);
+            box-shadow: var(--shadow-green-bright);
+            transform: translateY(-3px);
+        }
+
+        /* SYSTEM STATUS INDICATOR */
+        .system-status {
+            display: inline-block;
+            background: rgba(0, 255, 65, 0.15);
+            border: 1px solid var(--primary-green);
+            padding: 0.4rem 1rem;
+            margin: 0.5rem 0 1rem 0;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            animation: glow-pulse 2s ease-in-out infinite;
+            box-shadow: var(--shadow-green);
+        }
+
+        .status-blink {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: var(--bright-green);
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: blink 1s infinite;
+            box-shadow: 0 0 10px var(--bright-green);
+        }
+
+        /* SECTION STYLES */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            letter-spacing: 3px;
+            text-align: center;
+            animation: glow-pulse 3s ease-in-out infinite;
+            text-shadow: 0 0 15px var(--primary-green);
+        }
+
+        /* STATS SECTION */
+        .stats-section {
+            background: rgba(0, 255, 65, 0.03);
+            border-top: 1px solid rgba(0, 255, 65, 0.1);
+            border-bottom: 1px solid rgba(0, 255, 65, 0.1);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            background: rgba(0, 255, 65, 0.05);
+            padding: 2rem;
+            border: 1px solid var(--primary-green);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            box-shadow: var(--shadow-green);
+            background: rgba(0, 255, 65, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: var(--bright-green);
+            text-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            letter-spacing: 1px;
+            color: var(--light-green);
+        }
+
+        /* ABOUT SECTION */
+        .about-section {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .about-content {
+            display: flex;
+            justify-content: center;
+            margin-top: 3rem;
+        }
+
+        .about-text {
+            max-width: 800px;
+            text-align: center;
+        }
+
+        .about-text h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: 2px;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: var(--light-green);
+        }
+
+        .about-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .feature-item {
+            background: rgba(0, 255, 65, 0.1);
+            border: 1px solid var(--primary-green);
+            padding: 0.8rem 1.5rem;
+            border-radius: 2px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            background: rgba(0, 255, 65, 0.2);
+            box-shadow: var(--shadow-green);
+            transform: translateY(-3px);
+        }
+
+        /* SERVICES SECTION */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: rgba(0, 255, 65, 0.05);
+            border: 2px solid var(--primary-green);
+            padding: 2rem;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            animation: bounce-in 0.8s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .service-card:hover::before {
+            left: 100%;
+        }
+
+        .service-card:hover {
+            box-shadow: var(--shadow-green-bright);
+            transform: translateY(-10px);
+            background: rgba(0, 255, 65, 0.1);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 0 10px var(--primary-green));
+        }
+
+        .service-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .service-card p {
+            font-size: 0.95rem;
+            color: var(--light-green);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-btn {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--bright-green) 100%);
+            color: var(--bg-color);
+            padding: 0.8rem 1.5rem;
+            border: 2px solid var(--primary-green);
+            border-radius: 2px;
+            font-size: 0.9rem;
+            font-family: 'Roboto Mono', monospace;
+            font-weight: bold;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-green);
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+
+        .service-btn:hover {
+            box-shadow: var(--shadow-green-bright);
+            transform: translateY(-3px);
+            background: linear-gradient(135deg, var(--bright-green) 0%, var(--light-green) 100%);
+        }
+
+        /* PORTFOLIO SECTION */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: rgba(0, 255, 65, 0.08);
+            border: 2px solid var(--primary-green);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: bounce-in 0.8s ease-out;
+            position: relative;
+        }
+
+        .project-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 30%, rgba(0, 255, 65, 0.3), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover {
+            box-shadow: var(--shadow-green-bright);
+            transform: scale(1.05);
+        }
+
+        .project-card:hover::after {
+            opacity: 1;
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--dark-green) 0%, var(--light-green) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .project-info {
+            padding: 1.5rem;
+        }
+
+        .project-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+        }
+
+        .project-info p {
+            font-size: 0.9rem;
+            color: var(--light-green);
+            margin-bottom: 1rem;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tech-tag {
+            background: rgba(0, 255, 65, 0.2);
+            border: 1px solid var(--primary-green);
+            padding: 0.3rem 0.7rem;
+            font-size: 0.75rem;
+            border-radius: 2px;
+            letter-spacing: 1px;
+        }
+
+        /* PRICING SECTION */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .pricing-card {
+            background: rgba(0, 255, 65, 0.05);
+            border: 2px solid var(--primary-green);
+            padding: 2rem;
+            border-radius: 2px;
+            text-align: center;
+            transition: all 0.3s ease;
+            animation: bounce-in 0.8s ease-out;
+            position: relative;
+        }
+
+        .pricing-card.featured {
+            border: 3px solid var(--bright-green);
+            background: rgba(0, 255, 65, 0.15);
+            transform: scale(1.05);
+            box-shadow: var(--shadow-green-bright);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .pricing-card:hover {
+            box-shadow: var(--shadow-green-bright);
+            transform: translateY(-10px);
+        }
+
+        .pricing-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            margin: 1rem 0;
+            color: var(--bright-green);
+            text-shadow: 0 0 10px var(--bright-green);
+        }
+
+        .price-currency {
+            font-size: 1.2rem;
+        }
+
+        .features-list {
+            text-align: left;
+            margin: 2rem 0;
+            list-style: none;
+        }
+
+        .features-list li {
+            padding: 0.7rem 0;
+            border-bottom: 1px solid rgba(0, 255, 65, 0.2);
+            font-size: 0.9rem;
+        }
+
+        .features-list li::before {
+            content: '> ';
+            color: var(--bright-green);
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .pricing-btn {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--bright-green) 100%);
+            color: var(--bg-color);
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 2px;
+            font-size: 1rem;
+            font-family: 'Roboto Mono', monospace;
+            font-weight: bold;
+            cursor: pointer;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-green);
+            width: 100%;
+        }
+
+        .pricing-btn:hover {
+            box-shadow: var(--shadow-green-bright);
+            transform: translateY(-3px);
+        }
+
+        /* SKILLS SECTION */
+        .skills-container {
+            max-width: 700px;
+            margin: 3rem auto;
+        }
+
+        .skill-item {
+            margin-bottom: 2rem;
+        }
+
+        .skill-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+        }
+
+        .skill-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(0, 255, 65, 0.1);
+            border: 1px solid var(--primary-green);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .skill-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-green) 0%, var(--bright-green) 100%);
+            border-radius: 2px;
+            box-shadow: 0 0 10px var(--primary-green);
+            animation: shimmer 2s ease-in-out infinite;
+        }
+
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .tech-item {
+            background: rgba(0, 255, 65, 0.08);
+            border: 1px solid var(--primary-green);
+            padding: 1rem;
+            border-radius: 2px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .tech-item:hover {
+            background: rgba(0, 255, 65, 0.15);
+            box-shadow: var(--shadow-green);
+            transform: translateY(-5px);
+        }
+
+        /* CONTACT SECTION */
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-item {
+            border-left: 3px solid var(--primary-green);
+            padding-left: 1.5rem;
+        }
+
+        .contact-item h3 {
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+        }
+
+        .contact-item p {
+            color: var(--light-green);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            background: rgba(0, 255, 65, 0.05);
+            border: 1px solid var(--primary-green);
+            color: var(--text-color);
+            padding: 0.8rem;
+            font-family: 'Roboto Mono', monospace;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            box-shadow: var(--shadow-green);
+            background: rgba(0, 255, 65, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-submit {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--bright-green) 100%);
+            color: var(--bg-color);
+            padding: 1rem;
+            border: none;
+            border-radius: 2px;
+            font-size: 1rem;
+            font-family: 'Roboto Mono', monospace;
+            font-weight: bold;
+            cursor: pointer;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-green);
+        }
+
+        .form-submit:hover {
+            box-shadow: var(--shadow-green-bright);
+            transform: scale(1.02);
+        }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg-color);
+            border: 2px solid var(--primary-green);
+            padding: 2rem;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            border-radius: 2px;
+            box-shadow: var(--shadow-green-bright);
+            animation: bounce-in 0.5s ease-out;
+        }
+
+        .modal-close {
+            float: right;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--primary-green);
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--bright-green);
+            transform: rotate(90deg);
+        }
+
+        /* FOOTER */
+        footer {
+            background: rgba(0, 0, 0, 0.95);
+            border-top: 2px solid var(--primary-green);
+            padding: 2rem;
+            text-align: center;
+            color: var(--light-green);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        footer a {
+            color: var(--primary-green);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--bright-green);
+            text-shadow: 0 0 10px var(--bright-green);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.8rem;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            header {
+                padding: 1rem;
+            }
+
+            .logo {
+                font-size: 1.3rem;
+            }
+
+            section h2 {
+                font-size: 1.8rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .cta-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
+
+            section {
+                padding: 3rem 1rem;
+            }
+
+            section h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- MATRIX RAIN CANVAS -->
+    <canvas id="matrixCanvas"></canvas>
+
+    <!-- HEADER -->
+    <header>
+        <nav>
+            <div class="logo">&gt; NEXUS_CODE</div>
+            <ul class="nav-links">
+                <li><a href="#services">УСЛУГИ</a></li>
+                <li><a href="#portfolio">ПОРТФОЛИО</a></li>
+                <li><a href="#pricing">ТАРИФЫ</a></li>
+                <li><a href="#skills">НАВЫКИ</a></li>
+                <li><a href="#contact">КОНТАКТЫ</a></li>
+            </ul>
+            <button class="cta-btn">КОНСУЛЬТАЦИЯ</button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>&lt;CODE_MASTER&gt;</h1>
+                <span class="system-status"><span class="status-blink"></span>SYSTEM ONLINE</span>
+                <p class="hero-subtitle">// Разработчик нового поколения</p>
+                <div class="hero-code">
+                    const capabilities = {<br>
+                    &nbsp;&nbsp;softwareDevelopment: true,<br>
+                    &nbsp;&nbsp;anyLanguage: true,<br>
+                    &nbsp;&nbsp;anyTheme: true,<br>
+                    &nbsp;&nbsp;qualityGuaranteed: true,<br>
+                    &nbsp;&nbsp;fastDelivery: true<br>
+                    };
+                </div>
+                <div class="hero-buttons">
+                    <button class="btn-primary">НАЧАТЬ ПРОЕКТ</button>
+                    <button class="btn-secondary">УЗНАТЬ БОЛЬШЕ</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- STATS SECTION -->
+        <section id="stats" class="stats-section">
+            <h2>&lt;&lt; СТАТИСТИКА &gt;&gt;</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number" data-target="150">0</div>
+                    <div class="stat-label">Проектов выполнено</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="8">0</div>
+                    <div class="stat-label">Лет опыта</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="100">0</div>
+                    <div class="stat-label">Клиентов</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="5.0">0</div>
+                    <div class="stat-label">Рейтинг</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section id="about" class="about-section">
+            <h2>&lt;&lt; О КОМПАНИИ &gt;&gt;</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>МЫ - NEXUS_CODE</h3>
+                    <p>Мы - команда разработчиков нового поколения, способных создать любой программный продукт от простого скрипта до сложной корпоративной системы. Наша миссия - доставлять качественный код в срок и с максимальной производительностью.</p>
+                    <p>Начиная с 2018 года, мы помогаем бизнесу расти через технологии. Каждый наш проект - это индивидуальный подход, современные технологии и гарантия качества.</p>
+                    <div class="about-features">
+                        <div class="feature-item">✨ Качество кода 100%</div>
+                        <div class="feature-item">⚡ Быстрые сроки</div>
+                        <div class="feature-item">🔒 Конфиденциальность</div>
+                        <div class="feature-item">🔄 Поддержка 24/7</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SERVICES SECTION -->
+        <section id="services">
+            <h2>&lt;&lt; УСЛУГИ &gt;&gt;</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">💻</div>
+                    <h3>Разработка ПО</h3>
+                    <p>Создание программного обеспечения на любом языке программирования. Веб-приложения, десктопные программы, мобильные приложения и системное ПО.</p>
+                    <button class="service-btn" data-service="software-development">ЗАКАЗАТЬ УСЛУГУ</button>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">⚙️</div>
+                    <h3>Оптимизация Систем</h3>
+                    <p>Настройка, оптимизация и повышение производительности существующих приложений и инфраструктуры. Анализ узких мест и их устранение.</p>
+                    <button class="service-btn" data-service="optimization">ЗАКАЗАТЬ УСЛУГУ</button>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🧠</div>
+                    <h3>Консультирование</h3>
+                    <p>Архитектурные консультации, выбор технологий, лучшие практики разработки. Помощь в принятии критических решений для вашего проекта.</p>
+                    <button class="service-btn" data-service="consulting">ЗАКАЗАТЬ УСЛУГУ</button>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🔗</div>
+                    <h3>Интеграция Систем</h3>
+                    <p>Интеграция различных платформ и приложений. Работа с API, синхронизация данных, создание middleware для взаимодействия систем.</p>
+                    <button class="service-btn" data-service="integration">ЗАКАЗАТЬ УСЛУГУ</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- PORTFOLIO SECTION -->
+        <section id="portfolio">
+            <h2>&lt;&lt; ПОРТФОЛИО &gt;&gt;</h2>
+            <div class="portfolio-grid">
+                <div class="project-card">
+                    <div class="project-image">🛒</div>
+                    <div class="project-info">
+                        <h3>E-Commerce Platform</h3>
+                        <p>Полнофункциональная платформа для онлайн-магазина с интегрированной системой платежей.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">MongoDB</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">☁️</div>
+                    <div class="project-info">
+                        <h3>SaaS Application</h3>
+                        <p>Облачное приложение для управления проектами с удалённым доступом и real-time синхронизацией.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Vue.js</span>
+                            <span class="tech-tag">Firebase</span>
+                            <span class="tech-tag">WebSockets</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">📱</div>
+                    <div class="project-info">
+                        <h3>Mobile App</h3>
+                        <p>Нативное мобильное приложение с поддержкой iOS и Android, интегрированная с облачными сервисами.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">React Native</span>
+                            <span class="tech-tag">Swift</span>
+                            <span class="tech-tag">Kotlin</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">🔌</div>
+                    <div class="project-info">
+                        <h3>REST API Service</h3>
+                        <p>Высоконагруженный микросервис с документацией, авторизацией и оптимизированными запросами к БД.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">FastAPI</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">📊</div>
+                    <div class="project-info">
+                        <h3>CMS System</h3>
+                        <p>Собственная система управления контентом с графическим редактором и компонентным подходом.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Django</span>
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">📈</div>
+                    <div class="project-info">
+                        <h3>Data Analytics Tool</h3>
+                        <p>Инструмент для анализа больших объёмов данных с интерактивной визуализацией и отчётами.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">D3.js</span>
+                            <span class="tech-tag">BigQuery</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRICING SECTION -->
+        <section id="pricing">
+            <h2>&lt;&lt; ТАРИФЫ &gt;&gt;</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>СТАРТЕР</h3>
+                    <div class="price"><span class="price-currency">₽</span>50,000</div>
+                    <p style="font-size: 0.9rem; color: var(--light-green);">за проект</p>
+                    <ul class="features-list">
+                        <li>Простые проекты до 10k строк кода</li>
+                        <li>Базовая поддержка (7 дней)</li>
+                        <li>Одна итерация доработок</li>
+                        <li>Документация базовая</li>
+                        <li>Email поддержка</li>
+                    </ul>
+                    <button class="pricing-btn" data-tariff="starter">ВЫБРАТЬ</button>
+                </div>
+                <div class="pricing-card featured">
+                    <h3>ПРОФЕССИОНАЛ</h3>
+                    <div class="price"><span class="price-currency">₽</span>150,000</div>
+                    <p style="font-size: 0.9rem; color: var(--bright-green);">за проект</p>
+                    <ul class="features-list">
+                        <li>Средние проекты до 50k строк кода</li>
+                        <li>Расширенная поддержка (30 дней)</li>
+                        <li>Неограниченные доработки</li>
+                        <li>Полная документация</li>
+                        <li>Консультации по архитектуре</li>
+                        <li>Telegram поддержка</li>
+                    </ul>
+                    <button class="pricing-btn" data-tariff="professional">ВЫБРАТЬ</button>
+                </div>
+                <div class="pricing-card">
+                    <h3>ПРЕМИУМ</h3>
+                    <div class="price"><span class="price-currency">₽</span>300,000+</div>
+                    <p style="font-size: 0.9rem; color: var(--light-green);">по договору</p>
+                    <ul class="features-list">
+                        <li>Большие проекты 100k+ строк кода</li>
+                        <li>VIP поддержка (неограниченная)</li>
+                        <li>Постоянное развитие проекта</li>
+                        <li>Расширенная документация</li>
+                        <li>Встречи с архитектором</li>
+                        <li>Приоритетная очередь</li>
+                        <li>Выезды на место (по договору)</li>
+                    </ul>
+                    <button class="pricing-btn" data-tariff="premium">СВЯЗАТЬСЯ</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SKILLS SECTION -->
+        <section id="skills">
+            <h2>&lt;&lt; КОМПЕТЕНЦИИ &gt;&gt;</h2>
+            <div class="skills-container">
+                <div class="skill-item">
+                    <div class="skill-label">
+                        <span>Backend Development</span>
+                        <span>95%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-fill" style="width: 95%; animation-delay: 0s;"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-label">
+                        <span>Frontend Development</span>
+                        <span>90%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-fill" style="width: 90%; animation-delay: 0.2s;"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-label">
+                        <span>DevOps & Infrastructure</span>
+                        <span>85%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-fill" style="width: 85%; animation-delay: 0.4s;"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-label">
+                        <span>Database Design</span>
+                        <span>92%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-fill" style="width: 92%; animation-delay: 0.6s;"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-label">
+                        <span>Mobile Development</span>
+                        <span>88%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-fill" style="width: 88%; animation-delay: 0.8s;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="text-align: center; margin-top: 3rem; letter-spacing: 2px; font-size: 1.3rem;">// Технологический стек</h3>
+            <div class="tech-stack">
+                <div class="tech-item">Python</div>
+                <div class="tech-item">JavaScript</div>
+                <div class="tech-item">TypeScript</div>
+                <div class="tech-item">Java</div>
+                <div class="tech-item">C++</div>
+                <div class="tech-item">Go</div>
+                <div class="tech-item">React</div>
+                <div class="tech-item">Vue.js</div>
+                <div class="tech-item">Node.js</div>
+                <div class="tech-item">PostgreSQL</div>
+                <div class="tech-item">MongoDB</div>
+                <div class="tech-item">Docker</div>
+                <div class="tech-item">Kubernetes</div>
+                <div class="tech-item">AWS</div>
+                <div class="tech-item">Git</div>
+                <div class="tech-item">CI/CD</div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact">
+            <h2>&lt;&lt; КОНТАКТЫ &gt;&gt;</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <h3>Телефон</h3>
+                        <p>+7 (999) 123-45-67</p>
+                    </div>
+                    <div class="contact-item">
+                        <h3>Email</h3>
+                        <p>hello@nexuscode.dev</p>
+                    </div>
+                    <div class="contact-item">
+                        <h3>Адрес</h3>
+                        <p>Москва, Россия</p>
+                    </div>
+                    <div class="contact-item">
+                        <h3>Часы работы</h3>
+                        <p>Пн-Пт: 09:00 - 18:00 (MSK)<br>Сб-Вс: По договору</p>
+                    </div>
+                </div>
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Имя *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Тема проекта *</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Ваше сообщение *</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="form-submit">ОТПРАВИТЬ ЗАПРОС</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 NEXUS_CODE | Компьютерный мастер нового поколения | <a href="#services">Услуги</a> | <a href="#portfolio">Портфолио</a> | <a href="#contact">Контакты</a></p>
+        <p>// &lt;/MATRIX&gt; :: Разработано с ❤️ и зелёным кодом</p>
+    </footer>
+
+    <!-- MODAL FOR PROJECT DETAILS -->
+    <div class="modal" id="projectModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle" style="margin-bottom: 1rem; letter-spacing: 2px;"></h2>
+            <p id="modalDescription" style="margin-bottom: 1rem;"></p>
+            <div id="modalTechStack"></div>
+        </div>
+    </div>
+
+    <script>
+        // MATRIX RAIN EFFECT
+        const canvas = document.getElementById('matrixCanvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const characters = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const drops = [];
+
+        for (let i = 0; i < columns; i++) {
+            drops[i] = Math.random() * canvas.height;
+        }
+
+        function drawMatrixRain() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#00FF41';
+            ctx.font = fontSize + 'px "Courier New"';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = characters[Math.floor(Math.random() * characters.length)];
+                ctx.fillText(text, i * fontSize, drops[i]);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+
+                drops[i]++;
+            }
+        }
+
+        setInterval(drawMatrixRain, 33);
+
+        // WINDOW RESIZE
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // FORM HANDLING
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const data = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                subject: formData.get('subject'),
+                message: formData.get('message'),
+                timestamp: new Date().toLocaleString('ru-RU')
+            };
+
+            console.log('Запрос отправлен:', data);
+            alert('✓ Спасибо! Ваш запрос отправлен. Мы свяжемся с вами в ближайшее время.');
+            this.reset();
+        });
+
+        // SMOOTH SCROLL
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // MODAL FUNCTIONS
+        function openModal(title, description, tech) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalDescription').textContent = description;
+            document.getElementById('modalTechStack').innerHTML = tech;
+            document.getElementById('projectModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('projectModal').classList.remove('active');
+        }
+
+        // PROJECT CARD CLICK HANDLERS
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const title = this.querySelector('.project-info h3').textContent;
+                const description = this.querySelector('.project-info p').textContent;
+                const tech = this.querySelector('.project-tech').innerHTML;
+                openModal(title, description, `<strong>Технологии:</strong><div class="project-tech" style="margin-top: 1rem;">${tech}</div>`);
+            });
+        });
+
+        // CLOSE MODAL ON OUTSIDE CLICK
+        document.getElementById('projectModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // ANIMATE SKILLS ON SCROLL
+        const observerOptions = {
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.skill-item').forEach(skill => {
+            observer.observe(skill);
+        });
+
+        // CTA BUTTONS
+        document.querySelectorAll('.btn-primary, .cta-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const contactSection = document.getElementById('contact');
+                if (contactSection) {
+                    contactSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // SERVICE BUTTONS
+        document.querySelectorAll('.service-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const service = this.getAttribute('data-service');
+                const contactSection = document.getElementById('contact');
+                const subjectField = document.getElementById('subject');
+
+                if (contactSection && subjectField) {
+                    // Заполняем поле темы
+                    const serviceNames = {
+                        'software-development': 'Разработка ПО',
+                        'optimization': 'Оптимизация систем',
+                        'consulting': 'Консультирование',
+                        'integration': 'Интеграция систем'
+                    };
+                    subjectField.value = `Заказ услуги: ${serviceNames[service]}`;
+
+                    // Скроллим к форме
+                    contactSection.scrollIntoView({ behavior: 'smooth' });
+
+                    // Фокус на форму через небольшую задержку
+                    setTimeout(() => {
+                        document.getElementById('name').focus();
+                    }, 800);
+                }
+            });
+        });
+
+        // PRICING BUTTONS
+        document.querySelectorAll('.pricing-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const tariff = this.getAttribute('data-tariff');
+                const contactSection = document.getElementById('contact');
+                const subjectField = document.getElementById('subject');
+
+                if (contactSection && subjectField) {
+                    // Заполняем поле темы
+                    const tariffNames = {
+                        'starter': 'Тариф СТАРТЕР (50 000 ₽)',
+                        'professional': 'Тариф ПРОФЕССИОНАЛ (150 000 ₽)',
+                        'premium': 'Тариф ПРЕМИУМ (300 000+ ₽)'
+                    };
+                    subjectField.value = `Интерес к тарифу: ${tariffNames[tariff]}`;
+
+                    // Скроллим к форме
+                    contactSection.scrollIntoView({ behavior: 'smooth' });
+
+                    // Фокус на форму
+                    setTimeout(() => {
+                        document.getElementById('name').focus();
+                    }, 800);
+                }
+            });
+        });
+
+        // TECH ITEMS HOVER EFFECT
+        document.querySelectorAll('.tech-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px) rotate(1deg)';
+            });
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) rotate(0deg)';
+            });
+        });
+
+        // EASTER EGG: KONAMI CODE (↑↑↓↓←→←→BA)
+        let konamiCode = [];
+        const konamiPattern = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+
+        document.addEventListener('keydown', function(e) {
+            konamiCode.push(e.key);
+            konamiCode = konamiCode.slice(-10);
+
+            if (konamiCode.join('').toLowerCase() === konamiPattern.join('').toLowerCase()) {
+                activateKonamiMode();
+            }
+        });
+
+        function activateKonamiMode() {
+            // Создаём эффект взрыва
+            document.body.style.animation = 'none';
+            setTimeout(() => {
+                document.body.style.animation = 'pulse 0.5s ease-in-out 3';
+            }, 10);
+
+            // Выводим сообщение
+            const konamiMsg = document.createElement('div');
+            konamiMsg.innerHTML = '🎮 <strong>KONAMI CODE ACTIVATED!</strong> 🎮<br>You are now a true hacker!';
+            konamiMsg.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(0, 255, 65, 0.95);
+                color: #000;
+                padding: 2rem 3rem;
+                border: 3px solid #00FF00;
+                border-radius: 5px;
+                font-size: 1.5rem;
+                font-weight: bold;
+                z-index: 10000;
+                text-align: center;
+                box-shadow: 0 0 50px rgba(0, 255, 65, 1);
+                animation: bounce-in 0.5s ease-out;
+            `;
+            document.body.appendChild(konamiMsg);
+
+            // Временно увеличиваем скорость Matrix rain
+            canvas.style.opacity = '0.8';
+
+            setTimeout(() => {
+                konamiMsg.remove();
+                canvas.style.opacity = '0.3';
+            }, 3000);
+
+            console.log('%c🎮 KONAMI CODE UNLOCKED! 🎮', 'color: #00FF41; font-size: 20px; font-weight: bold;');
+        }
+
+        // EASTER EGG: 1337 SPEAK (печатаем "1337" или "leet")
+        let keyBuffer = [];
+        document.addEventListener('keydown', function(e) {
+            keyBuffer.push(e.key);
+            keyBuffer = keyBuffer.slice(-4);
+            const typed = keyBuffer.join('').toLowerCase();
+
+            if (typed === '1337' || typed === 'leet') {
+                activate1337Mode();
+            }
+        });
+
+        function activate1337Mode() {
+            alert('🔓 H4X0R M0D3 4CT1V4T3D! 🔓\n\nY0U 4R3 N0W 4 L33T H4CK3R!\n\nTry typing more Easter eggs...');
+            console.log('%c🔓 1337 MODE ACTIVATED! 🔓', 'color: #39FF14; font-size: 18px; font-weight: bold; text-shadow: 0 0 10px #39FF14;');
+            console.log('%cH4X0R M0D3: 3N4BL3D', 'color: #00FF41; font-size: 14px;');
+        }
+
+        // EASTER EGG: Triple Click Logo
+        let logoClickCount = 0;
+        let logoClickTimer = null;
+
+        document.querySelector('.logo').addEventListener('click', function() {
+            logoClickCount++;
+
+            if (logoClickTimer) clearTimeout(logoClickTimer);
+
+            logoClickTimer = setTimeout(() => {
+                logoClickCount = 0;
+            }, 500);
+
+            if (logoClickCount === 3) {
+                activateLogoEasterEgg();
+                logoClickCount = 0;
+            }
+        });
+
+        function activateLogoEasterEgg() {
+            const messages = [
+                '> ACCESS GRANTED',
+                '> LOADING NEURAL NETWORK...',
+                '> MATRIX CONNECTED',
+                '> YOU KNOW KUNG FU NOW',
+                '> FOLLOW THE WHITE RABBIT 🐰'
+            ];
+
+            let i = 0;
+            const interval = setInterval(() => {
+                if (i < messages.length) {
+                    console.log(`%c${messages[i]}`, 'color: #00FF41; font-size: 14px; font-family: monospace;');
+                    i++;
+                } else {
+                    clearInterval(interval);
+                    console.log('%c> WELCOME TO THE REAL WORLD, NEO.', 'color: #00FF00; font-size: 16px; font-weight: bold;');
+                }
+            }, 300);
+        }
+
+        // EASTER EGG: Canvas Click (Red Pill / Blue Pill)
+        canvas.addEventListener('dblclick', function(e) {
+            const choice = confirm('💊 MATRIX CHOICE 💊\n\nRed Pill (OK) - See the truth\nBlue Pill (Cancel) - Stay in wonderland');
+
+            if (choice) {
+                // Red Pill - Matrix становится красной
+                canvas.style.opacity = '0.6';
+                ctx.fillStyle = '#FF0000';
+                alert('🔴 RED PILL TAKEN\n\nYou chose the truth. Welcome to the real world.');
+                console.log('%c🔴 RED PILL: Truth revealed', 'color: #FF0000; font-size: 16px; font-weight: bold;');
+
+                setTimeout(() => {
+                    canvas.style.opacity = '0.3';
+                    ctx.fillStyle = '#00FF41';
+                }, 5000);
+            } else {
+                // Blue Pill - Все остаётся как есть
+                alert('🔵 BLUE PILL TAKEN\n\nYou chose comfort. The story ends here.');
+                console.log('%c🔵 BLUE PILL: Staying in the Matrix', 'color: #0000FF; font-size: 16px;');
+            }
+        });
+
+        // ANIMATE STATS ON SCROLL
+        const statsObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.querySelectorAll('.stat-number').forEach(stat => {
+                        const target = parseInt(stat.getAttribute('data-target'));
+                        const duration = 2000;
+                        const stepTime = Math.abs(Math.floor(duration / target));
+                        let start = 0;
+                        const timer = setInterval(function() {
+                            start += 1;
+                            stat.textContent = start + (stat.textContent.includes('.') ? '0' : '');
+                            if (start >= target) {
+                                clearInterval(timer);
+                                stat.textContent = target + (target === 5.0 ? '' : '+');
+                            }
+                        }, stepTime);
+                    });
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+
+        const statsSection = document.querySelector('.stats-section');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+
+        // LOG WELCOME MESSAGE
+        console.log('%c> NEXUS_CODE SYSTEM ACTIVATED', 'color: #00FF41; font-size: 16px; font-weight: bold; text-shadow: 0 0 10px #00FF41;');
+        console.log('%cWelcome to the Matrix of Development', 'color: #00AA00; font-size: 14px;');
+        console.log('%c// Ready to code anything...', 'color: #00FF41; font-size: 12px;');
+        console.log('%c\n💡 HINT: Try some Easter eggs!\n- Type "1337" or "leet"\n- Konami Code: ↑↑↓↓←→←→BA\n- Triple-click the logo\n- Double-click on Matrix rain', 'color: #00AA00; font-size: 11px; font-style: italic;');
+    </script>
+</body>
+</html>
