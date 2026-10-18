@@ -223,6 +223,23 @@
             transform: scale(1.05);
         }
 
+        /* MOBILE MENU BUTTON */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: 2px solid var(--primary-green);
+            color: var(--primary-green);
+            font-size: 1.5rem;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 2px;
+        }
+
+        .mobile-menu-btn:hover {
+            background: rgba(0, 255, 65, 0.1);
+            box-shadow: var(--shadow-green);
+        }
+
         /* MATRIX RAIN CONTAINER */
         #matrixCanvas {
             position: fixed;
@@ -1010,6 +1027,27 @@
                 font-size: 0.8rem;
             }
 
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: rgba(0, 0, 0, 0.98);
+                border-bottom: 2px solid var(--primary-green);
+                padding: 1rem;
+                gap: 1rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
             section {
                 padding: 3rem 1rem;
             }
@@ -1028,7 +1066,8 @@
     <header>
         <nav>
             <div class="logo">&gt; NEXUS_CODE</div>
-            <ul class="nav-links">
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Меню"></button>
+            <ul class="nav-links" id="navLinks">
                 <li><a href="#services">УСЛУГИ</a></li>
                 <li><a href="#portfolio">ПОРТФОЛИО</a></li>
                 <li><a href="#pricing">ТАРИФЫ</a></li>
@@ -1064,6 +1103,7 @@
 
         <!-- STATS SECTION -->
         <section id="stats" class="stats-section">
+            <div class="demo-warning" style="text-align: center; margin-bottom: 1rem; font-size: 0.8rem; color: var(--light-green); opacity: 0.7;">// Демонстрационные данные для примера</div>
             <h2>&lt;&lt; СТАТИСТИКА &gt;&gt;</h2>
             <div class="stats-grid">
                 <div class="stat-item">
@@ -1136,6 +1176,7 @@
 
         <!-- PORTFOLIO SECTION -->
         <section id="portfolio">
+            <div class="demo-warning" style="text-align: center; margin-bottom: 1rem; font-size: 0.8rem; color: var(--light-green); opacity: 0.7;">// Демонстрационные проекты для примера</div>
             <h2>&lt;&lt; ПОРТФОЛИО &gt;&gt;</h2>
             <div class="portfolio-grid">
                 <div class="project-card">
@@ -1215,6 +1256,7 @@
 
         <!-- PRICING SECTION -->
         <section id="pricing">
+            <div class="demo-warning" style="text-align: center; margin-bottom: 1rem; font-size: 0.8rem; color: var(--light-green); opacity: 0.7;">// Демонстрационные тарифы для примера</div>
             <h2>&lt;&lt; ТАРИФЫ &gt;&gt;</h2>
             <div class="pricing-grid">
                 <div class="pricing-card">
@@ -1336,6 +1378,7 @@
 
         <!-- CONTACT SECTION -->
         <section id="contact">
+            <div class="demo-warning" style="text-align: center; margin-bottom: 1rem; font-size: 0.8rem; color: var(--light-green); opacity: 0.7;">// Демонстрационные контакты для примера</div>
             <h2>&lt;&lt; КОНТАКТЫ &gt;&gt;</h2>
             <div class="contact-content">
                 <div class="contact-info">
@@ -1400,6 +1443,9 @@
         const canvas = document.getElementById('matrixCanvas');
         const ctx = canvas.getContext('2d');
 
+        // Matrix color state - can be changed by Easter eggs
+        let matrixColor = '#00FF41';
+
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
@@ -1416,7 +1462,7 @@
             ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            ctx.fillStyle = '#00FF41';
+            ctx.fillStyle = matrixColor;
             ctx.font = fontSize + 'px "Courier New"';
 
             for (let i = 0; i < drops.length; i++) {
@@ -1439,21 +1485,31 @@
             canvas.height = window.innerHeight;
         });
 
-        // FORM HANDLING
+        // FORM HANDLING - sends via mailto
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            const formData = new FormData(this);
-            const data = {
-                name: formData.get('name'),
-                email: formData.get('email'),
-                subject: formData.get('subject'),
-                message: formData.get('message'),
-                timestamp: new Date().toLocaleString('ru-RU')
-            };
 
-            console.log('Запрос отправлен:', data);
-            alert('✓ Спасибо! Ваш запрос отправлен. Мы свяжемся с вами в ближайшее время.');
+            const formData = new FormData(this);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const subject = formData.get('subject');
+            const message = formData.get('message');
+
+            if (!name || !email || !subject || !message) {
+                alert('⚠️ Пожалуйста, заполните все обязательные поля.');
+                return;
+            }
+
+            // Prepare email content
+            const emailBody = `Имя: ${name}%0AEmail: ${email}%0AТема: ${subject}%0A%0AСообщение:%0A${message}`;
+            const mailtoLink = `mailto:hello@nexuscode.dev?subject=${encodeURIComponent(subject)}&body=${emailBody}`;
+
+            // Open email client
+            window.location.href = mailtoLink;
+
+            // Show success message (browser-based, not automatic send)
             this.reset();
+            alert('📧 СПОЧАТКО!\n\nВаш почтовый клиент должен открыться с подготовленным письмом.\nЕсли окно не открылось, проверьте настройки почты или используйте другой email адрес.');
         });
 
         // SMOOTH SCROLL
@@ -1514,7 +1570,7 @@
         });
 
         // CTA BUTTONS
-        document.querySelectorAll('.btn-primary, .cta-btn').forEach(btn => {
+        document.querySelectorAll('.btn-primary').forEach(btn => {
             btn.addEventListener('click', function() {
                 const contactSection = document.getElementById('contact');
                 if (contactSection) {
@@ -1522,6 +1578,23 @@
                 }
             });
         });
+
+        // SECONDARY BUTTON - scrolls to about section
+        const secondaryBtn = document.querySelector('.btn-secondary');
+        if (secondaryBtn) {
+            secondaryBtn.addEventListener('click', function() {
+                const aboutSection = document.getElementById('about');
+                if (aboutSection) {
+                    aboutSection.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    // Fallback to services if about doesn't exist
+                    const servicesSection = document.getElementById('services');
+                    if (servicesSection) {
+                        servicesSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        }
 
         // SERVICE BUTTONS
         document.querySelectorAll('.service-btn').forEach(btn => {
@@ -1706,14 +1779,15 @@
 
             if (choice) {
                 // Red Pill - Matrix становится красной
+                matrixColor = '#FF0000';
                 canvas.style.opacity = '0.6';
-                ctx.fillStyle = '#FF0000';
                 alert('🔴 RED PILL TAKEN\n\nYou chose the truth. Welcome to the real world.');
                 console.log('%c🔴 RED PILL: Truth revealed', 'color: #FF0000; font-size: 16px; font-weight: bold;');
 
                 setTimeout(() => {
                     canvas.style.opacity = '0.3';
-                    ctx.fillStyle = '#00FF41';
+                    matrixColor = '#00FF41';
+                    alert('🟢 MATRIX RESET TO GREEN\n\nWelcome back to the Matrix.');
                 }, 5000);
             } else {
                 // Blue Pill - Все остаётся как есть
@@ -1727,16 +1801,23 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.querySelectorAll('.stat-number').forEach(stat => {
-                        const target = parseInt(stat.getAttribute('data-target'));
+                        const targetStr = stat.getAttribute('data-target');
+                        const target = parseFloat(targetStr);
+                        const isDecimal = targetStr.includes('.');
                         const duration = 2000;
-                        const stepTime = Math.abs(Math.floor(duration / target));
+                        const steps = 50;
+                        const stepTime = Math.abs(Math.floor(duration / steps));
                         let start = 0;
                         const timer = setInterval(function() {
                             start += 1;
-                            stat.textContent = start + (stat.textContent.includes('.') ? '0' : '');
-                            if (start >= target) {
+                            if (isDecimal) {
+                                stat.textContent = (start / 10).toFixed(1);
+                            } else {
+                                stat.textContent = start;
+                            }
+                            if ((isDecimal && start >= target * 10) || (!isDecimal && start >= target)) {
                                 clearInterval(timer);
-                                stat.textContent = target + (target === 5.0 ? '' : '+');
+                                stat.textContent = targetStr + (targetStr === '5.0' ? '' : '+');
                             }
                         }, stepTime);
                     });
@@ -1748,6 +1829,25 @@
         const statsSection = document.querySelector('.stats-section');
         if (statsSection) {
             statsObserver.observe(statsSection);
+        }
+
+        // MOBILE MENU TOGGLE
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+
+        if (mobileMenuBtn && navLinks) {
+            mobileMenuBtn.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+                this.classList.toggle('active');
+            });
+
+            // Close menu when clicking a link
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', function() {
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.classList.remove('active');
+                });
+            });
         }
 
         // LOG WELCOME MESSAGE
