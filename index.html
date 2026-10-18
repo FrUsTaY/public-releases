@@ -249,6 +249,10 @@
             border-radius: 2px;
         }
 
+        .mobile-menu-btn::before {
+            content: '\2630';
+        }
+
         .mobile-menu-btn:hover {
             background: rgba(0, 255, 65, 0.1);
             box-shadow: var(--shadow-green);
@@ -862,13 +866,6 @@
             transform: translateY(-5px) rotate(1deg);
         }
 
-        .tech-item:focus {
-            outline: 2px solid var(--bright-green);
-            outline-offset: 2px;
-            background: rgba(0, 255, 65, 0.2);
-            transform: translateY(-3px);
-        }
-
         /* CONTACT SECTION */
         .contact-content {
             display: grid;
@@ -994,11 +991,23 @@
             cursor: pointer;
             color: var(--primary-green);
             transition: all 0.3s ease;
+            background: none;
+            border: none;
+            padding: 0;
+            line-height: 1;
+            width: auto;
+            height: auto;
+            margin: 0;
         }
 
         .modal-close:hover {
             color: var(--bright-green);
             transform: rotate(90deg);
+        }
+
+        .modal-close:focus {
+            outline: 2px solid var(--bright-green);
+            outline-offset: 2px;
         }
 
         /* FOOTER */
@@ -1415,22 +1424,22 @@
 
             <h3 id="tech-stack-title" style="text-align: center; margin-top: 3rem; letter-spacing: 2px; font-size: 1.3rem;">// Технологический стек</h3>
             <div class="tech-stack" role="list" aria-labelledby="tech-stack-title">
-                <div class="tech-item" role="listitem" tabindex="0" aria-label="Технология: Python">Python</div>
-                <div class="tech-item" role="listitem" tabindex="0" aria-label="Технология: JavaScript">JavaScript</div>
-                <div class="tech-item" role="listitem" tabindex="0" aria-label="Технология: TypeScript">TypeScript</div>
-                <div class="tech-item" role="listitem" tabindex="0" aria-label="Технология: Java">Java</div>
-                <div class="tech-item" role="listitem" tabindex="0" aria-label="Технология: C++">C++</div>
-                <div class="tech-item" role="listitem" tabindex="0" aria-label="Технология: Go">Go</div>
-                <div class="tech-item" role="listitem" tabindex="0" aria-label="Технология: React">React</div>
-                <div class="tech-item" role="listitem" tabindex="0" aria-label="Технология: Vue.js">Vue.js</div>
-                <div class="tech-item" role="listitem" tabindex="0" aria-label="Технология: Node.js">Node.js</div>
-                <div class="tech-item" role="listitem" tabindex="0" aria-label="Технология: PostgreSQL">PostgreSQL</div>
-                <div class="tech-item" role="listitem" tabindex="0" aria-label="Технология: MongoDB">MongoDB</div>
-                <div class="tech-item" role="listitem" tabindex="0" aria-label="Технология: Docker">Docker</div>
-                <div class="tech-item" role="listitem" tabindex="0" aria-label="Технология: Kubernetes">Kubernetes</div>
-                <div class="tech-item" role="listitem" tabindex="0" aria-label="Технология: AWS">AWS</div>
-                <div class="tech-item" role="listitem" tabindex="0" aria-label="Технология: Git">Git</div>
-                <div class="tech-item" role="listitem" tabindex="0" aria-label="Технология: CI/CD">CI/CD</div>
+                <div class="tech-item" role="listitem" aria-label="Технология: Python">Python</div>
+                <div class="tech-item" role="listitem" aria-label="Технология: JavaScript">JavaScript</div>
+                <div class="tech-item" role="listitem" aria-label="Технология: TypeScript">TypeScript</div>
+                <div class="tech-item" role="listitem" aria-label="Технология: Java">Java</div>
+                <div class="tech-item" role="listitem" aria-label="Технология: C++">C++</div>
+                <div class="tech-item" role="listitem" aria-label="Технология: Go">Go</div>
+                <div class="tech-item" role="listitem" aria-label="Технология: React">React</div>
+                <div class="tech-item" role="listitem" aria-label="Технология: Vue.js">Vue.js</div>
+                <div class="tech-item" role="listitem" aria-label="Технология: Node.js">Node.js</div>
+                <div class="tech-item" role="listitem" aria-label="Технология: PostgreSQL">PostgreSQL</div>
+                <div class="tech-item" role="listitem" aria-label="Технология: MongoDB">MongoDB</div>
+                <div class="tech-item" role="listitem" aria-label="Технология: Docker">Docker</div>
+                <div class="tech-item" role="listitem" aria-label="Технология: Kubernetes">Kubernetes</div>
+                <div class="tech-item" role="listitem" aria-label="Технология: AWS">AWS</div>
+                <div class="tech-item" role="listitem" aria-label="Технология: Git">Git</div>
+                <div class="tech-item" role="listitem" aria-label="Технология: CI/CD">CI/CD</div>
             </div>
         </section>
 
@@ -1487,9 +1496,9 @@
     </footer>
 
     <!-- MODAL FOR PROJECT DETAILS -->
-    <div class="modal" id="projectModal">
+    <div class="modal" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
         <div class="modal-content">
-            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <button type="button" class="modal-close modal-close-btn" aria-label="Закрыть модальное окно">&times;</button>
             <h2 id="modalTitle" style="margin-bottom: 1rem; letter-spacing: 2px;"></h2>
             <p id="modalDescription" style="margin-bottom: 1rem;"></p>
             <div id="modalTechStack"></div>
@@ -1556,7 +1565,7 @@
 
         window.addEventListener('resize', resizeCanvas);
 
-        // FORM HANDLING - sends via mailto with improved UX
+        // FORM HANDLING - sends via mailto
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
@@ -1583,11 +1592,10 @@
             const emailBody = `Имя: ${encodeURIComponent(name)}%0AEmail: ${encodeURIComponent(email)}%0AТема: ${encodeURIComponent(subject)}%0A%0AСообщение:%0A${encodeURIComponent(message)}`;
             const mailtoLink = `mailto:hello@nexuscode.dev?subject=${encodeURIComponent(subject)}&body=${emailBody}`;
 
-            // Show confirmation before opening email client
-            if (confirm(`Отправить запрос на hello@nexuscode.dev?\n\nТема: ${subject}\nИмя: ${name}`)) {
+            // Confirm before opening email client
+            if (confirm(`Открыть почтовый клиент для отправки?\n\nТема: ${subject}\nИмя: ${name}`)) {
+                alert('📧 ПОДГОТОВКА ПИСЬМА\n\nВаш почтовый клиент должен открыться с подготовленным письмом.');
                 window.location.href = mailtoLink;
-                this.reset();
-                alert('📧 ПИСЬМО ГОТОВО!\n\nВаш почтовый клиент должен открыться с подготовленным письмом.');
             }
         });
 
@@ -1604,14 +1612,32 @@
 
         // MODAL FUNCTIONS
         function openModal(title, description, tech) {
+            const modal = document.getElementById('projectModal');
+            const modalContent = modal.querySelector('.modal-content');
+            const closeModalBtn = modal.querySelector('.modal-close-btn');
+
             document.getElementById('modalTitle').textContent = title;
             document.getElementById('modalDescription').textContent = description;
             document.getElementById('modalTechStack').innerHTML = tech;
-            document.getElementById('projectModal').classList.add('active');
+            modal.classList.add('active');
+
+            // Set focus to close button for accessibility
+            if (closeModalBtn) closeModalBtn.focus();
+
+            // Store last focused element for focus restoration
+            modal.dataset.lastFocused = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
         }
 
         function closeModal() {
-            document.getElementById('projectModal').classList.remove('active');
+            const modal = document.getElementById('projectModal');
+            modal.classList.remove('active');
+
+            // Restore focus to last focused element
+            const lastFocused = modal.dataset.lastFocused;
+            if (lastFocused) {
+                const elem = document.querySelector(lastFocused);
+                if (elem) elem.focus();
+            }
         }
 
         // PROJECT CARD HANDLERS (click and keyboard)
@@ -1639,6 +1665,13 @@
         // CLOSE MODAL ON OUTSIDE CLICK
         document.getElementById('projectModal').addEventListener('click', function(e) {
             if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // CLOSE MODAL ON ESCAPE KEY
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
                 closeModal();
             }
         });
@@ -1743,20 +1776,13 @@
             });
         });
 
-        // TECH ITEMS INTERACTION (hover and keyboard)
+        // TECH ITEMS HOVER EFFECT (no keyboard handlers - they only logged to console)
         document.querySelectorAll('.tech-item').forEach(item => {
             item.addEventListener('mouseenter', function() {
                 this.style.transform = 'translateY(-5px) rotate(1deg)';
             });
             item.addEventListener('mouseleave', function() {
                 this.style.transform = 'translateY(0) rotate(0deg)';
-            });
-            // Keyboard interaction for accessibility
-            item.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    console.log(`%cTechnology selected: ${this.textContent}`, 'color: #00FF41; font-size: 12px; font-family: monospace;');
-                }
             });
         });
 
@@ -1953,7 +1979,8 @@
 
         if (mobileMenuBtn && navLinks) {
             mobileMenuBtn.addEventListener('click', function() {
-                navLinks.classList.toggle('active');
+                const isActive = navLinks.classList.toggle('active');
+                mobileMenuBtn.setAttribute('aria-expanded', isActive);
             });
 
             // Close menu when clicking a link
