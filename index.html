@@ -186,6 +186,157 @@
             }
         }
 
+        /* === НОВЫЕ АНИМАЦИИ === */
+        /* Glitch-эффект для заголовков */
+        @keyframes glitch {
+            0%, 90%, 100% { transform: translate(0); text-shadow: 0 0 20px var(--primary-green); }
+            91% { transform: translate(-3px, 2px); text-shadow: 3px 0 #FF00DE, -3px 0 #00FFFF; }
+            93% { transform: translate(3px, -2px); text-shadow: -3px 0 #FF00DE, 3px 0 #00FFFF; }
+            95% { transform: translate(-2px, -1px); text-shadow: 2px 0 #00FFFF, -2px 0 #FF00DE; }
+            97% { transform: translate(2px, 1px); text-shadow: -2px 0 #00FFFF, 2px 0 #FF00DE; }
+        }
+
+        /* 3D-наклон карточек при наведении */
+        .tilt-card { transition: transform 0.3s ease; will-change: transform; }
+        .tilt-card:hover { transform: perspective(700px) rotateX(4deg) rotateY(-4deg) translateY(-6px); }
+
+        /* Parallax-слои */
+        .parallax-layer { will-change: transform; transition: transform 0.15s ease-out; }
+
+        /* Плавающие частицы (используются и в Симпсон-режиме) */
+        @keyframes float-up {
+            0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-110vh) rotate(720deg); opacity: 0; }
+        }
+        .particle {
+            position: fixed;
+            bottom: -5vh;
+            font-size: 2rem;
+            z-index: 9500;
+            pointer-events: none;
+            animation: float-up linear forwards;
+            filter: drop-shadow(0 0 6px rgba(0, 255, 65, 0.6));
+        }
+
+        /* Бегущая неоновая рамка для featured-карточки */
+        .pricing-card.featured::after {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            border: 2px solid transparent;
+            border-radius: 4px;
+            background: linear-gradient(120deg, rgba(0,255,65,0), var(--neon-green), rgba(0,255,65,0)) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            background-size: 300% 300%;
+            animation: neon-border-run 3s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes neon-border-run {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 300% 50%; }
+        }
+
+        /* Появление секций при скролле */
+        .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* Печатающийся текст с мигающим курсором */
+        .typewriter-line {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 2px solid var(--primary-green);
+            width: 0;
+            animation: typewriter 2.4s steps(40, end) 0.5s forwards, blink 0.8s step-end infinite;
+        }
+
+        /* «Пружинка» для кнопок hero */
+        @keyframes jelly {
+            0%, 100% { transform: scale(1, 1); }
+            25% { transform: scale(0.94, 1.06); }
+            50% { transform: scale(1.06, 0.94); }
+            75% { transform: scale(0.98, 1.02); }
+        }
+        .btn-primary:hover, .btn-secondary:hover { animation: jelly 0.5s ease; }
+
+        /* Волнистая линия-разделитель */
+        @keyframes wave-move {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .wave-divider {
+            overflow: hidden;
+            line-height: 0;
+            margin: 0 auto;
+            max-width: 1200px;
+        }
+        .wave-divider svg {
+            width: 200%;
+            height: 40px;
+            animation: wave-move 8s linear infinite;
+        }
+
+        /* Вращающийся спиннер-символ в шапке */
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .spinner-char { display: inline-block; animation: spin 2s linear infinite; }
+
+        /* Hover-подъём карточек портфолио/услуг */
+        .service-card:hover, .project-card:hover { transform: translateY(-8px) scale(1.02); box-shadow: var(--shadow-green-bright); }
+
+        /* Пульсация иконок услуг */
+        @keyframes icon-wobble {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(-8deg) scale(1.1); }
+            75% { transform: rotate(8deg) scale(1.1); }
+        }
+        .service-icon { display: inline-block; }
+        .service-card:hover .service-icon { animation: icon-wobble 0.6s ease-in-out; }
+
+        /* Мерцание статистики при наведении */
+        .stat-number:hover { animation: flicker 1.5s infinite; cursor: help; }
+
+        /* Skew-анимация tech-тегов */
+        @keyframes tag-pop {
+            0% { transform: scale(0.6) rotate(-4deg); opacity: 0; }
+            70% { transform: scale(1.1) rotate(2deg); }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+        .tech-item.reveal { transition-delay: calc(var(--i, 0) * 0.05s); }
+
+        /* ===== SIMPSONS MODE ===== */
+        body.simpsons-mode {
+            --primary-green: #FFE81A;
+            --dark-green: #2B1D00;
+            --light-green: #C7A500;
+            --bright-green: #FFF44F;
+            --neon-green: #FFE81A;
+            --text-color: #FFE81A;
+            --border-color: #C7A500;
+            --shadow-green: 0 0 20px rgba(255, 232, 26, 0.5);
+            --shadow-green-bright: 0 0 40px rgba(255, 232, 26, 0.8);
+        }
+        body.simpsons-mode header { border-bottom-color: #FFE81A; }
+        body.simpsons-mode .cta-btn { color: #000; }
+        .simpsons-toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #FFE81A;
+            color: #000;
+            font-weight: bold;
+            padding: 0.9rem 1.6rem;
+            border: 2px solid #000;
+            border-radius: 4px;
+            z-index: 10002;
+            box-shadow: 0 0 30px rgba(255, 232, 26, 0.8);
+            animation: bounce-in 0.5s ease-out;
+            font-family: 'Roboto Mono', monospace;
+            text-align: center;
+        }
+
         /* HEADER & NAVIGATION */
         header {
             position: fixed;
@@ -1218,7 +1369,7 @@
     <!-- HEADER -->
     <header>
         <nav>
-            <div class="logo" tabindex="0" role="button" aria-label="NEXUS CODE — на тройной клик есть пасхалка">&gt; NEXUS_CODE</div>
+            <div class="logo" tabindex="0" role="button" aria-label="NEXUS CODE — на тройной клик есть пасхалка"><span class="spinner-char">&gt;</span> NEXUS_CODE</div>
             <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Меню навигации" aria-expanded="false" aria-controls="navLinks">
     <span class="sr-only">Меню</span>
 </button>
@@ -1239,7 +1390,7 @@
             <div class="hero-content">
                 <h1>&lt;CODE_MASTER&gt;</h1>
                 <span class="system-status"><span class="status-blink"></span>SYSTEM ONLINE</span>
-                <p class="hero-subtitle">// Разработчик нового поколения</p>
+                <p class="hero-subtitle"><span class="typewriter-line">// Разработчик нового поколения</span></p>
                 <div class="hero-code">
                     const capabilities = {<br>
                     &nbsp;&nbsp;softwareDevelopment: true,<br>
@@ -1297,6 +1448,11 @@
                 </div>
             </div>
         </section>
+
+        <!-- WAVE DIVIDER -->
+        <div class="wave-divider" aria-hidden="true">
+            <svg viewBox="0 0 1200 40" preserveAspectRatio="none"><path d="M0 20 Q 75 0 150 20 T 300 20 T 450 20 T 600 20 T 750 20 T 900 20 T 1050 20 T 1200 20 V 40 H 0 Z" fill="none" stroke="#00FF41" stroke-width="1.5" opacity="0.5"/><path d="M0 20 Q 75 0 150 20 T 300 20 T 450 20 T 600 20 T 750 20 T 900 20 T 1050 20 T 1200 20 T 1350 20 T 1500 20 T 1650 20 T 1800 20 T 1950 20 T 2100 20 T 2250 20 T 2400 20" fill="none" stroke="#39FF14" stroke-width="1" opacity="0.3"/></svg>
+        </div>
 
         <!-- SERVICES SECTION -->
         <section id="services">
@@ -1585,7 +1741,7 @@
     <!-- FOOTER -->
     <footer>
         <p>&copy; 2026 NEXUS_CODE | Компьютерный мастер нового поколения | <a href="#services">Услуги</a> | <a href="#portfolio">Портфолио</a> | <a href="#contact">Контакты</a></p>
-        <p>// &lt;/MATRIX&gt; :: Разработано с ❤️ и зелёным кодом</p>
+        <p>// &lt;/MATRIX&gt; :: Разработано с ❤️</p>
     </footer>
 
     <!-- MODAL FOR PROJECT DETAILS -->
@@ -2185,11 +2341,183 @@
             });
         }
 
+        // ===== ДОПОЛНИТЕЛЬНЫЕ АНИМАЦИИ =====
+        if (!reducedMotion) {
+            // Glitch-эффект на главном заголовке каждые ~6 секунд
+            const heroTitle = document.querySelector('.hero h1');
+            if (heroTitle) {
+                setInterval(() => {
+                    heroTitle.style.animation = 'none';
+                    void heroTitle.offsetWidth; // reflow для перезапуска
+                    heroTitle.style.animation = 'glitch 0.9s steps(2, end), glow-pulse 2s ease-in-out infinite 0.9s';
+                }, 6000);
+            }
+
+            // Parallax: hero-контент и canvas слегка смещаются за курсором
+            const heroContent = document.querySelector('.hero-content');
+            document.addEventListener('mousemove', function(e) {
+                const dx = (e.clientX / window.innerWidth - 0.5);
+                const dy = (e.clientY / window.innerHeight - 0.5);
+                if (heroContent) {
+                    heroContent.style.transform = `translate(${dx * -18}px, ${dy * -12}px)`;
+                }
+                canvas.style.transform = `translate(${dx * 10}px, ${dy * 8}px) scale(1.03)`;
+            });
+
+            // Появление секций и карточек при скролле (reveal) с каскадной задержкой
+            const revealTargets = document.querySelectorAll(
+                '#services .service-card, #portfolio .project-card, #pricing .pricing-card, #about .feature-item'
+            );
+            revealTargets.forEach(el => el.classList.add('reveal'));
+
+            const revealObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            revealTargets.forEach((el, i) => {
+                el.style.transitionDelay = ((i % 4) * 0.12) + 's';
+                revealObserver.observe(el);
+            });
+
+            // Tech-теги: staggered pop-in при появлении стека
+            const techItems = document.querySelectorAll('.tech-item');
+            techItems.forEach((el, i) => el.style.setProperty('--i', i));
+            const stackObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = `tag-pop 0.45s ease-out forwards`;
+                        entry.target.style.animationDelay = getComputedStyle(entry.target).getPropertyValue('--i') * 0.05 + 's';
+                        stackObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.3 });
+            techItems.forEach(el => { el.style.opacity = '0'; stackObserver.observe(el); });
+
+            // 3D tilt для карточек услуг и тарифов (мышь отслеживается только на самой карточке)
+            document.querySelectorAll('.service-card, .pricing-card').forEach(card => {
+                card.classList.add('tilt-card');
+                card.addEventListener('mousemove', function(e) {
+                    const r = card.getBoundingClientRect();
+                    const rx = ((e.clientY - r.top) / r.height - 0.5) * -8;
+                    const ry = ((e.clientX - r.left) / r.width - 0.5) * 8;
+                    card.style.transform = `perspective(700px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-6px)`;
+                });
+                card.addEventListener('mouseleave', function() {
+                    card.style.transform = '';
+                });
+            });
+        }
+
+        // Случайные «зелёные» частицы, всплывающие снизу экрана
+        function spawnParticle(symbol, color) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.textContent = symbol;
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.animationDuration = (4 + Math.random() * 4) + 's';
+            if (color) { p.style.color = color; p.style.filter = 'drop-shadow(0 0 8px rgba(255,232,26,0.8))'; }
+            document.body.appendChild(p);
+            setTimeout(() => p.remove(), 9000);
+        }
+
+        if (!reducedMotion) {
+            setInterval(() => {
+                if (document.hidden) return;
+                if (simpsonsMode) return; // в Симпсон-режиме свои частицы
+                spawnParticle(['0', '1', '{', '}', '<', '>', '/'][Math.floor(Math.random() * 6)]);
+            }, 1200);
+        }
+
+        // ===== SIMPSONS MODE (интеграция с Симпсонами) =====
+        let simpsonsMode = false;
+        let simpsonsInterval = null;
+
+        const SIMPSONS_QUOTES = [
+            'D\'oh! Код не компилируется... снова.',
+            'Excelente! Отличный проект!',
+            'Mmm... программный код 🍩',
+            'Никаких багов! Ну почти никаких...',
+            'Хм-хм-хм... Это баг или фича?',
+            'Симуляция запущена успешно!'
+        ];
+
+        function activateSimpsonsMode() {
+            if (simpsonsMode) return;
+            simpsonsMode = true;
+            document.body.classList.add('simpsons-mode');
+            matrixColor = '#FFE81A'; // жёлтый Matrix-дождь
+
+            // Тост с цитатой
+            const toast = document.createElement('div');
+            toast.className = 'simpsons-toast';
+            toast.textContent = '🍩 SIMPSONS MODE: ' + SIMPSONS_QUOTES[Math.floor(Math.random() * SIMPSONS_QUOTES.length)];
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 4000);
+
+            // Ливень пончиков, донатов и Хomer-смайлов
+            const symbols = ['🍩', '💛', '😄', '🍺', '☢️'];
+            simpsonsInterval = setInterval(() => {
+                if (!document.hidden) {
+                    spawnParticle(symbols[Math.floor(Math.random() * symbols.length)], '#FFE81A');
+                }
+            }, 350);
+
+            console.log('%c🍩 SIMPSONS MODE ACTIVATED! D\'oh!', 'color: #FFE81A; background: #000; font-size: 18px; font-weight: bold;');
+
+            // Возврат в зелёную Матрицу через 12 секунд
+            setTimeout(deactivateSimpsonsMode, 12000);
+        }
+
+        function deactivateSimpsonsMode() {
+            if (!simpsonsMode) return;
+            simpsonsMode = false;
+            document.body.classList.remove('simpsons-mode');
+            matrixColor = '#00FF41';
+            if (simpsonsInterval) { clearInterval(simpsonsInterval); simpsonsInterval = null; }
+            console.log('%c> MATRIX RESTORED TO GREEN', 'color: #00FF41; font-size: 14px;');
+        }
+
+        // Пасхалка: наберите "doh" или "homer" где угодно вне формы
+        let simpsonBuffer = [];
+        document.addEventListener('keydown', function(e) {
+            const activeElement = document.activeElement;
+            if (activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'SELECT')) {
+                return;
+            }
+            simpsonBuffer.push(e.key.toLowerCase());
+            simpsonBuffer = simpsonBuffer.slice(-5);
+            const typed = simpsonBuffer.join('');
+            if (typed.endsWith('doh') || typed.endsWith('homer')) {
+                activateSimpsonsMode();
+                simpsonBuffer = [];
+            }
+        });
+
+        // Клик по логотипу 5 раз подряд тоже включает Симпсон-режим
+        let logoClickTotal = 0;
+        let logoClickTotalTimer = null;
+        if (logoEl) {
+            logoEl.addEventListener('click', function() {
+                logoClickTotal++;
+                if (logoClickTotalTimer) clearTimeout(logoClickTotalTimer);
+                logoClickTotalTimer = setTimeout(() => { logoClickTotal = 0; }, 2500);
+                if (logoClickTotal >= 5) {
+                    logoClickTotal = 0;
+                    activateSimpsonsMode();
+                }
+            });
+        }
+
         // LOG WELCOME MESSAGE
         console.log('%c> NEXUS_CODE SYSTEM ACTIVATED', 'color: #00FF41; font-size: 16px; font-weight: bold; text-shadow: 0 0 10px #00FF41;');
         console.log('%cWelcome to the Matrix of Development', 'color: #00AA00; font-size: 14px;');
         console.log('%c// Ready to code anything...', 'color: #00FF41; font-size: 12px;');
-        console.log('%c\n💡 HINT: Try some Easter eggs!\n- Type "1337" or "leet"\n- Konami Code: ↑↑↓↓←→←→BA\n- Triple-click the logo\n- Double-click on Matrix rain', 'color: #00AA00; font-size: 11px; font-style: italic;');
+        console.log('%c\n💡 HINT: Try some Easter eggs!\n- Type "1337" or "leet"\n- Konami Code: ↑↑↓↓←→←→BA\n- Triple-click the logo\n- Double-click on Matrix rain\n- Type "doh" or click the logo 5 times → SIMPSONS MODE 🍩', 'color: #00AA00; font-size: 11px; font-style: italic;');
     </script>
 </body>
 </html>
