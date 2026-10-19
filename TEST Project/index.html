@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="NEXUS CODE - Разработчик нового поколения. Создание программного обеспечения на любом языке. Качество кода 100%, быстрые сроки, поддержка 24/7.">
+    <title>NEXUS CODE - Software Master | Matrix Style</title>
+    <!-- FIX audit #12: preconnect к Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Roboto+Mono:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- FIX audit #17: SVG favicon (data-URI, без запроса /favicon.ico) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23000'/%3E%3Ctext x='50' y='68' font-size='60' text-anchor='middle' fill='%2300FF41' font-family='monospace'%3E%26gt;%3C/text%3E%3C/svg%3E">
+    <!-- FIX audit #11: theme-color и Open Graph / Twitter Card -->
+    <meta name="theme-color" content="#000000">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="NEXUS CODE">
+    <meta property="og:title" content="NEXUS CODE — Software Master">
+    <meta property="og:description" content="Разработчик нового поколения. Создание программного обеспечения на любом языке. Качество кода 100%, быстрые сроки, поддержка 24/7.">
+    <meta property="og:locale" content="ru_RU">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="NEXUS CODE — Software Master">
+    <meta name="twitter:description" content="Разработчик нового поколения: ПО на любом языке, качество кода 100%, поддержка 24/7.">
+
+    <!-- Рефакторинг: стили вынесены в css/, скрипты — в js/ -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/layout.css">
+</head>
+<body>
+    <!-- MATRIX RAIN CANVAS -->
+    <canvas id="matrixCanvas"></canvas>
+
+    <!-- HEADER -->
+    <header>
+        <nav>
+            <div class="logo" tabindex="0" role="button" aria-label="NEXUS CODE — на тройной клик есть пасхалка"><span class="spinner-char">&gt;</span> NEXUS_CODE</div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Меню навигации" aria-expanded="false" aria-controls="navLinks">
+    <span class="sr-only">Меню</span>
+</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#services">УСЛУГИ</a></li>
+                <li><a href="#portfolio">ПОРТФОЛИО</a></li>
+                <li><a href="#pricing">ТАРИФЫ</a></li>
+                <li><a href="#skills">НАВЫКИ</a></li>
+                <li><a href="#contact">КОНТАКТЫ</a></li>
+            </ul>
+            <button class="cta-btn" id="headerCtaBtn" aria-label="Записаться на консультацию — перейти к форме контактов">КОНСУЛЬТАЦИЯ</button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>&lt;CODE_MASTER&gt;</h1>
+                <span class="system-status"><span class="status-blink"></span>SYSTEM ONLINE</span>
+                <p class="hero-subtitle"><span class="typewriter-line">// Разработчик нового поколения</span></p>
+                <div class="hero-code">
+                    const capabilities = {<br>
+                    &nbsp;&nbsp;softwareDevelopment: true,<br>
+                    &nbsp;&nbsp;anyLanguage: true,<br>
+                    &nbsp;&nbsp;anyTheme: true,<br>
+                    &nbsp;&nbsp;qualityGuaranteed: true,<br>
+                    &nbsp;&nbsp;fastDelivery: true<br>
+                    };
+                </div>
+                <div class="hero-buttons">
+                    <button class="btn-primary">НАЧАТЬ ПРОЕКТ</button>
+                    <button class="btn-secondary">УЗНАТЬ БОЛЬШЕ</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- STATS SECTION -->
+        <section id="stats" class="stats-section">
+            <div class="demo-warning">// Демонстрационные данные для примера</div>
+            <h2>&lt;&lt; СТАТИСТИКА &gt;&gt;</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number" data-target="150">0</div>
+                    <div class="stat-label">Проектов выполнено</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="8">0</div>
+                    <div class="stat-label">Лет опыта</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="100">0</div>
+                    <div class="stat-label">Клиентов</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="5.0">0</div>
+                    <div class="stat-label">Рейтинг</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section id="about" class="about-section">
+            <h2>&lt;&lt; О КОМПАНИИ &gt;&gt;</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>МЫ - NEXUS_CODE</h3>
+                    <p>Мы - команда разработчиков нового поколения, способных создать любой программный продукт от простого скрипта до сложной корпоративной системы. Наша миссия - доставлять качественный код в срок и с максимальной производительностью.</p>
+                    <p>Начиная с 2018 года, мы помогаем бизнесу расти через технологии. Каждый наш проект - это индивидуальный подход, современные технологии и гарантия качества.</p>
+                    <div class="about-features">
+                        <div class="feature-item">✨ Качество кода 100%</div>
+                        <div class="feature-item">⚡ Быстрые сроки</div>
+                        <div class="feature-item">🔒 Конфиденциальность</div>
+                        <div class="feature-item">🔄 Поддержка 24/7</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- WAVE DIVIDER -->
+        <div class="wave-divider" aria-hidden="true">
+            <svg viewBox="0 0 1200 40" preserveAspectRatio="none"><path d="M0 20 Q 75 0 150 20 T 300 20 T 450 20 T 600 20 T 750 20 T 900 20 T 1050 20 T 1200 20 V 40 H 0 Z" fill="none" stroke="#00FF41" stroke-width="1.5" opacity="0.5"/><path d="M0 20 Q 75 0 150 20 T 300 20 T 450 20 T 600 20 T 750 20 T 900 20 T 1050 20 T 1200 20 T 1350 20 T 1500 20 T 1650 20 T 1800 20 T 1950 20 T 2100 20 T 2250 20 T 2400 20" fill="none" stroke="#39FF14" stroke-width="1" opacity="0.3"/></svg>
+        </div>
+
+        <!-- SERVICES SECTION -->
+        <section id="services">
+            <h2>&lt;&lt; УСЛУГИ &gt;&gt;</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">💻</div>
+                    <h3>Разработка ПО</h3>
+                    <p>Создание программного обеспечения на любом языке программирования. Веб-приложения, десктопные программы, мобильные приложения и системное ПО.</p>
+                    <button class="service-btn" data-service="software-development">ЗАКАЗАТЬ УСЛУГУ</button>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">⚙️</div>
+                    <h3>Оптимизация Систем</h3>
+                    <p>Настройка, оптимизация и повышение производительности существующих приложений и инфраструктуры. Анализ узких мест и их устранение.</p>
+                    <button class="service-btn" data-service="optimization">ЗАКАЗАТЬ УСЛУГУ</button>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🧠</div>
+                    <h3>Консультирование</h3>
+                    <p>Архитектурные консультации, выбор технологий, лучшие практики разработки. Помощь в принятии критических решений для вашего проекта.</p>
+                    <button class="service-btn" data-service="consulting">ЗАКАЗАТЬ УСЛУГУ</button>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🔗</div>
+                    <h3>Интеграция Систем</h3>
+                    <p>Интеграция различных платформ и приложений. Работа с API, синхронизация данных, создание middleware для взаимодействия систем.</p>
+                    <button class="service-btn" data-service="integration">ЗАКАЗАТЬ УСЛУГУ</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- PORTFOLIO SECTION -->
+        <section id="portfolio">
+            <div class="demo-warning">// Демонстрационные проекты для примера</div>
+            <h2>&lt;&lt; ПОРТФОЛИО &gt;&gt;</h2>
+            <div class="portfolio-grid">
+                <div class="project-card" tabindex="0" role="button" aria-label="E-Commerce Platform: React, Node.js, MongoDB">
+                    <div class="project-image" role="img" aria-label="Иконка корзины для e-commerce проекта">🛒</div>
+                    <div class="project-info">
+                        <h3>E-Commerce Platform</h3>
+                        <p>Полнофункциональная платформа для онлайн-магазина с интегрированной системой платежей.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">MongoDB</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card" tabindex="0" role="button" aria-label="SaaS Application: Vue.js, Firebase, WebSockets">
+                    <div class="project-image" role="img" aria-label="Иконка облака для SaaS проекта">☁️</div>
+                    <div class="project-info">
+                        <h3>SaaS Application</h3>
+                        <p>Облачное приложение для управления проектами с удалённым доступом и real-time синхронизацией.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Vue.js</span>
+                            <span class="tech-tag">Firebase</span>
+                            <span class="tech-tag">WebSockets</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card" tabindex="0" role="button" aria-label="Mobile App: React Native, Swift, Kotlin">
+                    <div class="project-image" role="img" aria-label="Иконка смартфона для мобильного приложения">📱</div>
+                    <div class="project-info">
+                        <h3>Mobile App</h3>
+                        <p>Нативное мобильное приложение с поддержкой iOS и Android, интегрированная с облачными сервисами.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">React Native</span>
+                            <span class="tech-tag">Swift</span>
+                            <span class="tech-tag">Kotlin</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card" tabindex="0" role="button" aria-label="REST API Service: Python, FastAPI, PostgreSQL">
+                    <div class="project-image" role="img" aria-label="Иконка plug для API сервиса">🔌</div>
+                    <div class="project-info">
+                        <h3>REST API Service</h3>
+                        <p>Высоконагруженный микросервис с документацией, авторизацией и оптимизированными запросами к БД.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">FastAPI</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card" tabindex="0" role="button" aria-label="CMS System: Django, React, PostgreSQL">
+                    <div class="project-image" role="img" aria-label="Иконка документа для CMS системы">📊</div>
+                    <div class="project-info">
+                        <h3>CMS System</h3>
+                        <p>Собственная система управления контентом с графическим редактором и компонентным подходом.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Django</span>
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card" tabindex="0" role="button" aria-label="Data Analytics Tool: Python, D3.js, BigQuery">
+                    <div class="project-image" role="img" aria-label="Иконка графика для инструмента аналитики">📈</div>
+                    <div class="project-info">
+                        <h3>Data Analytics Tool</h3>
+                        <p>Инструмент для анализа больших объёмов данных с интерактивной визуализацией и отчётами.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">D3.js</span>
+                            <span class="tech-tag">BigQuery</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRICING SECTION -->
+        <section id="pricing">
+            <div class="demo-warning">// Демонстрационные тарифы для примера</div>
+            <h2>&lt;&lt; ТАРИФЫ &gt;&gt;</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>СТАРТЕР</h3>
+                    <div class="price"><span class="price-currency">₽</span>50,000</div>
+                    <p class="price-note">за проект</p>
+                    <ul class="features-list">
+                        <li>Простые проекты до 10k строк кода</li>
+                        <li>Базовая поддержка (7 дней)</li>
+                        <li>Одна итерация доработок</li>
+                        <li>Документация базовая</li>
+                        <li>Email поддержка</li>
+                    </ul>
+                    <button class="pricing-btn" data-tariff="starter">ВЫБРАТЬ</button>
+                </div>
+                <div class="pricing-card featured">
+                    <h3>ПРОФЕССИОНАЛ</h3>
+                    <div class="price"><span class="price-currency">₽</span>150,000</div>
+                    <p class="price-note-highlight">за проект</p>
+                    <ul class="features-list">
+                        <li>Средние проекты до 50k строк кода</li>
+                        <li>Расширенная поддержка (30 дней)</li>
+                        <li>Неограниченные доработки</li>
+                        <li>Полная документация</li>
+                        <li>Консультации по архитектуре</li>
+                        <li>Telegram поддержка</li>
+                    </ul>
+                    <button class="pricing-btn" data-tariff="professional">ВЫБРАТЬ</button>
+                </div>
+                <div class="pricing-card">
+                    <h3>ПРЕМИУМ</h3>
+                    <div class="price"><span class="price-currency">₽</span>300,000+</div>
+                    <p class="price-note">по договору</p>
+                    <ul class="features-list">
+                        <li>Большие проекты 100k+ строк кода</li>
+                        <li>VIP поддержка (неограниченная)</li>
+                        <li>Постоянное развитие проекта</li>
+                        <li>Расширенная документация</li>
+                        <li>Встречи с архитектором</li>
+                        <li>Приоритетная очередь</li>
+                        <li>Выезды на место (по договору)</li>
+                    </ul>
+                    <button class="pricing-btn" data-tariff="premium">СВЯЗАТЬСЯ</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SKILLS SECTION -->
+        <section id="skills">
+            <h2>&lt;&lt; КОМПЕТЕНЦИИ &gt;&gt;</h2>
+            <div class="skills-container">
+                <div class="skill-item">
+                    <div class="skill-label">
+                        <span>Backend Development</span>
+                        <span aria-label="Уровень: 95 процентов">95%</span>
+                    </div>
+                    <div class="skill-bar" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100" aria-label="Навык Backend Development: 95%">
+                        <div class="skill-fill" style="width: 95%;"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-label">
+                        <span>Frontend Development</span>
+                        <span aria-label="Уровень: 90 процентов">90%</span>
+                    </div>
+                    <div class="skill-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" aria-label="Навык Frontend Development: 90%">
+                        <div class="skill-fill" style="width: 90%;"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-label">
+                        <span>DevOps & Infrastructure</span>
+                        <span aria-label="Уровень: 85 процентов">85%</span>
+                    </div>
+                    <div class="skill-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" aria-label="Навык DevOps & Infrastructure: 85%">
+                        <div class="skill-fill" style="width: 85%;"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-label">
+                        <span>Database Design</span>
+                        <span aria-label="Уровень: 92 процента">92%</span>
+                    </div>
+                    <div class="skill-bar" role="progressbar" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100" aria-label="Навык Database Design: 92%">
+                        <div class="skill-fill" style="width: 92%;"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-label">
+                        <span>Mobile Development</span>
+                        <span aria-label="Уровень: 88 процентов">88%</span>
+                    </div>
+                    <div class="skill-bar" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100" aria-label="Навык Mobile Development: 88%">
+                        <div class="skill-fill" style="width: 88%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 id="tech-stack-title" style="text-align: center; margin-top: 3rem; letter-spacing: 2px; font-size: 1.3rem;">// Технологический стек</h3>
+            <ul class="tech-stack" aria-labelledby="tech-stack-title">
+                <li class="tech-item">Python</li>
+                <li class="tech-item">JavaScript</li>
+                <li class="tech-item">TypeScript</li>
+                <li class="tech-item">Java</li>
+                <li class="tech-item">C++</li>
+                <li class="tech-item">Go</li>
+                <li class="tech-item">React</li>
+                <li class="tech-item">Vue.js</li>
+                <li class="tech-item">Node.js</li>
+                <li class="tech-item">PostgreSQL</li>
+                <li class="tech-item">MongoDB</li>
+                <li class="tech-item">Docker</li>
+                <li class="tech-item">Kubernetes</li>
+                <li class="tech-item">AWS</li>
+                <li class="tech-item">Git</li>
+                <li class="tech-item">CI/CD</li>
+            </ul>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact">
+            <div class="demo-warning">// Демонстрационные контакты для примера</div>
+            <h2>&lt;&lt; КОНТАКТЫ &gt;&gt;</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <h3>Телефон</h3>
+                        <p>+7 (999) 123-45-67</p>
+                    </div>
+                    <div class="contact-item">
+                        <h3>Email</h3>
+                        <p>hello@nexuscode.dev</p>
+                    </div>
+                    <div class="contact-item">
+                        <h3>Адрес</h3>
+                        <p>Москва, Россия</p>
+                    </div>
+                    <div class="contact-item">
+                        <h3>Часы работы</h3>
+                        <p>Пн-Пт: 09:00 - 18:00 (MSK)<br>Сб-Вс: По договору</p>
+                    </div>
+                </div>
+                <form class="contact-form" id="contactForm" novalidate>
+                    <div class="form-group">
+                        <label for="name">Имя *</label>
+                        <input type="text" id="name" name="name" required aria-required="true" autocomplete="name">
+                        <span class="field-error" id="nameError" role="alert"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required aria-required="true" autocomplete="email">
+                        <span class="field-error" id="emailError" role="alert"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Тема проекта *</label>
+                        <input type="text" id="subject" name="subject" required aria-required="true">
+                        <span class="field-error" id="subjectError" role="alert"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Ваше сообщение *</label>
+                        <textarea id="message" name="message" required aria-required="true"></textarea>
+                        <span class="field-error" id="messageError" role="alert"></span>
+                    </div>
+                    <button type="submit" class="form-submit" aria-label="Отправить сообщение">ОТПРАВИТЬ ЗАПРОС</button>
+                    <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 NEXUS_CODE | Компьютерный мастер нового поколения | <a href="#services">Услуги</a> | <a href="#portfolio">Портфолио</a> | <a href="#contact">Контакты</a></p>
+        <p>// &lt;/MATRIX&gt; :: Разработано с ❤️</p>
+    </footer>
+
+    <!-- MODAL FOR PROJECT DETAILS -->
+    <div class="modal" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
+        <div class="modal-content">
+            <button type="button" class="modal-close modal-close-btn" aria-label="Закрыть модальное окно">&times;</button>
+            <h2 id="modalTitle" class="modal-title"></h2>
+            <p id="modalDescription" class="modal-description"></p>
+            <div id="modalTechStack"></div>
+        </div>
+    </div>
+
+    <!-- Скрипты подключены как ES-модули -->
+    <script type="module" src="js/matrix-rain.js"></script>
+    <script type="module" src="js/form.js"></script>
+    <script type="module" src="js/smooth-scroll.js"></script>
+    <script type="module" src="js/modal.js"></script>
+    <script type="module" src="js/ui.js"></script>
+    <script type="module" src="js/particles.js"></script>
+    <script type="module" src="js/easter-eggs.js"></script>
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
