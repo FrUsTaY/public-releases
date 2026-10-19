@@ -1,6 +1,10 @@
-// Контактная форма: инлайн-валидация + отправка через mailto
-    // FORM HANDLING (FIX audit #4): инлайн-валидация полей + mailto без двойных alert/confirm
+// Контактная форма: инлайн-валидация + реальная отправка (FIX audit C-1)
+    // FIX audit C-1: вместо mailto-заглушки — POST на endpoint (Formspree/Getform/свой API).
+    // Укажите реальный адрес в FORM_ENDPOINT (или data-endpoint на <form>).
+    // Если endpoint не настроен — показываем честный fallback с почтой, а не имитацию отправки.
     const contactForm = document.getElementById('contactForm');
+    const FORM_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID'; // TODO: заменить на реальный ID формы
+
     if (contactForm) {
         const fields = [
             { id: 'name', errorId: 'nameError', validate: v => v.trim() ? '' : 'Укажите имя.' },
@@ -34,7 +38,7 @@
             }
         });
 
-        contactForm.addEventListener('submit', function(e) {
+        contactForm.addEventListener('submit', async function(e) {
             e.preventDefault();
 
             let firstInvalid = null;
@@ -51,13 +55,59 @@
             }
 
             const value = id => document.getElementById(id).value.trim();
-            const emailBody = `Имя: ${value('name')}\nEmail: ${value('email')}\n\nСообщение:\n${value('message')}`;
-            const mailtoLink = `mailto:hello@nexuscode.dev?subject=${encodeURIComponent(value('subject'))}&body=${encodeURIComponent(emailBody)}`;
-
             const status = document.getElementById('formStatus');
-            if (status) {
-                status.textContent = '> Открываю почтовый клиент... Если он не настроен, напишите напрямую: hello@nexuscode.dev';
+            const submitBtn = contactForm.querySelector('.form-submit');
+            const endpoint = contactForm.getAttribute('data-endpoint') || FORM_ENDPOINT;
+            const isConfigured = endpoint && !endpoint.includes('YOUR_FORM_ID');
+
+            // Честный fallback: если endpoint не настроен, НЕ имитируем отправку
+            if (!isConfigured) {
+                if (status) {
+                    status.textContent = '> Сервер приёма заявок ещё не подключён. Напишите напрямую: hello@nexuscode.dev';
+                    status.classList.add('error');
+                }
+                return;
             }
-            window.location.href = mailtoLink;
+
+            if (submitBtn) submitBtn.disabled = true;
+            if (status) {
+                status.classList.remove('success', 'error');
+                status.textContent = '> Отправка запроса...';
+            }
+
+            try {
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify({
+                        name: value('name'),
+                        email: value('email'),
+                        subject: value('subject'),
+                        message: value('message')
+                    })
+                });
+
+                if (response.ok) {
+                    if (status) {
+                        status.textContent = '> ЗАПРОС ОТПРАВЛЕН. Отвечу в течение 24 часов.';
+                        status.classList.add('success');
+                    }
+                    contactForm.reset();
+                    fields.forEach(f => setFieldError(f, ''));
+                } else {
+                    if (status) {
+                        status.textContent = `> ОШИБКА ОТПРАВКИ (${response.status}). Попробуйте позже или напишите: hello@nexuscode.dev`;
+                        status.classList.add('error');
+                    }
+                }
+            } catch (err) {
+                // FIX audit #12: обработка сетевых ошибок
+                if (status) {
+                    status.textContent = '> СЕТЕВАЯ ОШИБКА. Проверьте подключение и попробуйте снова, или напишите: hello@nexuscode.dev';
+                    status.classList.add('error');
+                }
+            } finally {
+                if (submitBtn) submitBtn.disabled = false;
+            }
         });
     }

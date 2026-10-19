@@ -811,6 +811,15 @@
         letter-spacing: 1px;
     }
 
+    /* FIX audit C-1: состояния успеха/ошибки отправки формы */
+    .form-status.success {
+        color: #00ff41;
+    }
+
+    .form-status.error {
+        color: #ff6b6b;
+    }
+
     .form-group textarea {
         resize: vertical;
         min-height: 120px;

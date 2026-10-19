@@ -23,41 +23,8 @@ import { openModal } from "./modal.js";
         });
     });
 
-    // CLOSE MODAL ON OUTSIDE CLICK
-    document.getElementById('projectModal').addEventListener('click', function(e) {
-        if (e.target === this) {
-            closeModal();
-        }
-    });
-
-    // CLOSE MODAL ON ESCAPE KEY + FOCUS TRAP (FIX audit #5, #9)
-    document.addEventListener('keydown', function(e) {
-        const modal = document.getElementById('projectModal');
-        const isModalOpen = modal && modal.classList.contains('active');
-
-        if (!isModalOpen) return;
-
-        if (e.key === 'Escape') {
-            closeModal();
-            return;
-        }
-
-        // Ловушка фокуса: Tab циклится внутри диалога
-        if (e.key === 'Tab') {
-            const focusables = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-            if (focusables.length === 0) return;
-            const first = focusables[0];
-            const last = focusables[focusables.length - 1];
-
-            if (e.shiftKey && document.activeElement === first) {
-                e.preventDefault();
-                last.focus();
-            } else if (!e.shiftKey && document.activeElement === last) {
-                e.preventDefault();
-                first.focus();
-            }
-        }
-    });
+    // FIX audit C-2: закрытие по клику вне / Escape / ловушка фокуса
+    // централизованы в js/modal.js — здесь дублирующие обработчики удалены.
 
     // ANIMATE SKILLS ON SCROLL
     const observerOptions = {
