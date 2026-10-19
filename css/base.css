@@ -1,0 +1,40 @@
+/* Базовые стили: CSS-переменные, reset, шрифт, фон */
+    :root {
+        --primary-green: #00FF41;
+        --dark-green: #001A00;
+        --light-green: #00AA00;
+        --bright-green: #00FF00;
+        --neon-green: #39FF14;
+        --text-color: #00FF41;
+        --bg-color: #000000;
+        --border-color: #00AA00;
+        --shadow-green: 0 0 20px rgba(0, 255, 65, 0.5);
+        --shadow-green-bright: 0 0 40px rgba(0, 255, 65, 0.8);
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        font-family: 'Roboto Mono', 'Courier New', monospace;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        line-height: 1.6;
+        overflow-x: hidden;
+        background-image:
+            repeating-linear-gradient(
+                0deg,
+                rgba(0, 255, 65, 0.03) 0px,
+                rgba(0, 255, 65, 0.03) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+    }
+
