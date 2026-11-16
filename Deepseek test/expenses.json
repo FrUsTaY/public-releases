@@ -1,0 +1,14 @@
+[
+  {
+    "amount": 1500.0,
+    "category": "еда"
+  },
+  {
+    "amount": 300.0,
+    "category": "транспорт"
+  },
+  {
+    "amount": 500.0,
+    "category": "еда"
+  }
+]
